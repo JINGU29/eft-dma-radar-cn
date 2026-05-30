@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using System;
 using System.Collections.Generic;
@@ -546,7 +546,7 @@ namespace eft_dma_radar.UI.ESP
             IsAntialias = true,
         };
 
-        private static readonly SKFont _espWidgetFont = new(SKTypeface.FromFamilyName("Consolas"), 12) { Subpixel = true };
+        private static readonly SKFont _espWidgetFont = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 12) { Subpixel = true };
         #endregion
 
         #region IDisposable

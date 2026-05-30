@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Common.Misc;
+using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Misc.Data.EFT;
 using eft_dma_radar.Tarkov.Features.MemoryWrites;
 using eft_dma_radar.UI.Misc;
@@ -24,7 +24,7 @@ namespace eft_dma_radar.UI.ESP
         /// Constructs an ESP Hotkey Widget.
         /// </summary>
         public ESPHotkeyWidget(SKGLControl parent, SKPoint location, bool minimized, float scale)
-            : base(parent, "Hotkeys", location, new SKSize(350, 300), scale, true)
+            : base(parent, "快捷键", location, new SKSize(350, 300), scale, true)
         {
             Minimized = minimized;
             _padding = 6f * scale;
@@ -132,7 +132,7 @@ namespace eft_dma_radar.UI.ESP
             var showKeyTypeSymbol = _showKeyType ? "[x]" : "[ ]";
             var onlyActiveSymbol = _onlyActive ? "[x]" : "[ ]";
 
-            var filtersText = $"Filters: {showKeySymbol} Show Key  {showKeyTypeSymbol} Show Type  {onlyActiveSymbol} Only Active";
+            var filtersText = $"过滤器: {showKeySymbol} 显示按键  {showKeyTypeSymbol} 显示类型  {onlyActiveSymbol} 仅活动";
             canvas.DrawText(filtersText, drawPt, SKTextAlign.Left, _hotkeyFont, _hotkeyTextPaint);
 
             drawPt.Y += lineSpacing * 1f;
@@ -179,11 +179,11 @@ namespace eft_dma_radar.UI.ESP
                 var startX = ClientRectangle.Left + _padding;
                 var currentX = startX;
 
-                var filtersText = "Filters: ";
+                var filtersText = "过滤器: ";
                 var filtersWidth = _hotkeyFont.MeasureText(filtersText);
                 currentX += filtersWidth;
 
-                var showKeyCheckbox = _showKey ? "[x] Show Key  " : "[ ] Show Key  ";
+                var showKeyCheckbox = _showKey ? "[x] 显示按键  " : "[ ] 显示按键  ";
                 var showKeyWidth = _hotkeyFont.MeasureText(showKeyCheckbox);
                 if (point.X >= currentX && point.X <= currentX + showKeyWidth)
                 {
@@ -194,7 +194,7 @@ namespace eft_dma_radar.UI.ESP
 
                 currentX += showKeyWidth;
 
-                var showKeyTypeCheckbox = _showKeyType ? "[x] Show Type  " : "[ ] Show Type  ";
+                var showKeyTypeCheckbox = _showKeyType ? "[x] 显示类型  " : "[ ] 显示类型  ";
                 var showKeyTypeWidth = _hotkeyFont.MeasureText(showKeyTypeCheckbox);
                 if (point.X >= currentX && point.X <= currentX + showKeyTypeWidth)
                 {
@@ -205,7 +205,7 @@ namespace eft_dma_radar.UI.ESP
 
                 currentX += showKeyTypeWidth;
 
-                var onlyActiveCheckbox = _onlyActive ? "[x] Only Active" : "[ ] Only Active";
+                var onlyActiveCheckbox = _onlyActive ? "[x] 仅活动" : "[ ] 仅活动";
                 var onlyActiveWidth = _hotkeyFont.MeasureText(onlyActiveCheckbox);
                 if (point.X >= currentX && point.X <= currentX + onlyActiveWidth)
                 {
@@ -241,7 +241,7 @@ namespace eft_dma_radar.UI.ESP
             }
             catch (Exception ex)
             {
-                Log.WriteLine($"Exception in IsHotkeyActive: {ex.Message}");
+                Log.WriteLine($"IsHotkeyActive 异常: {ex.Message}");
                 return false;
             }
         }
@@ -337,154 +337,154 @@ namespace eft_dma_radar.UI.ESP
                 switch (actionName)
                 {
                     // Loot
-                    case "Show Loot":
+                    case "显示战利品":
                         return Config.ProcessLoot;
-                    case "Show Wishlist Loot":
+                    case "显示心愿单":
                         return Config.LootWishlist;
-                    case "Show Meds":
+                    case "显示药品":
                         return LootFilterControl.ShowMeds;
-                    case "Show Food":
+                    case "显示食物":
                         return LootFilterControl.ShowFood;
-                    case "Show Weapons":
+                    case "显示武器":
                         return LootFilterControl.ShowWeapons;
-                    case "Show Backpacks":
+                    case "显示背包":
                         return LootFilterControl.ShowBackpacks;
-                    case "Show Containers":
+                    case "显示容器":
                         return Config.Containers.Show;
-                    case "Important Corpse Loot":
+                    case "重要尸体战利品":
                         return Config.EntityTypeSettings?.GetSettings("Corpse")?.ShowImportantLoot ?? false;
-                    case "Important Player Loot":
+                    case "重要玩家战利品":
                         return Config.PlayerTypeSettings?.Settings?.Values?.Any(s => s.ShowImportantLoot) ?? false;
 
                     // Fuser ESP
-                    case "Toggle Fuser ESP":
+                    case "切换融合器ESP":
                         return ESPForm.ShowESP;
-                    case "Mini Radar Zoom In":
-                    case "Mini Radar Zoom Out":
+                    case "小雷达放大":
+                    case "小雷达缩小":
                         return false;
-                    case "Fuser Quest Info":
+                    case "融合器任务信息":
                         return Config.ESP.ShowQuestInfoWidget;
-                    case "Fuser Important Corpse Loot":
+                    case "融合器重要尸体战利品":
                         return Config.ESP.EntityTypeESPSettings?.GetSettings("Corpse")?.ShowImportantLoot ?? false;
-                    case "Fuser Important Player Loot":
+                    case "融合器重要玩家战利品":
                         return Config.ESP.PlayerTypeESPSettings?.Settings?.Values?.Any(s => s.ShowImportantLoot) ?? false;
 
                     // Memory Writes - Global
-                    case "Toggle Rage Mode":
+                    case "切换狂暴模式":
                         return Config.MemWrites.RageMode;
 
                     // Memory Writes - Aimbot
-                    case "Toggle Aimbot":
+                    case "切换自瞄":
                         return Config.MemWrites.Aimbot.Enabled;
-                    case "Engage Aimbot":
+                    case "启动自瞄":
                         return Aimbot.Engaged;
-                    case "Toggle Aimbot Mode":
+                    case "切换自瞄模式":
                         return false;
-                    case "Aimbot Bone":
+                    case "自瞄骨骼":
                         return false;
-                    case "Safe Lock":
+                    case "安全锁定":
                         return Config.MemWrites.Aimbot.SilentAim.SafeLock;
-                    case "Random Bone":
+                    case "随机骨骼":
                         return Config.MemWrites.Aimbot.RandomBone.Enabled;
-                    case "Auto Bone":
+                    case "自动骨骼":
                         return Config.MemWrites.Aimbot.SilentAim.AutoBone;
-                    case "Headshot AI":
+                    case "AI爆头":
                         return Config.MemWrites.Aimbot.HeadshotAI;
 
                     // Memory Writes - Weapons
-                    //case "No Malfunctions":
+                    //case "无故障":
                     //    return Config.MemWrites.NoWeaponMalfunctions;
-                    case "Fast Weapon Ops":
+                    case "快速武器操作":
                         return Config.MemWrites.FastWeaponOps;
-                    case "Disable Weapon Collision":
+                    case "禁用武器碰撞":
                         return Config.MemWrites.DisableWeaponCollision;
-                    case "No Recoil":
+                    case "无后座":
                         return Config.MemWrites.NoRecoil;
 
                     // Memory Writes - Movement
-                    case "Infinite Stamina":
+                    case "无限耐力":
                         return Config.MemWrites.InfStamina;
-                    case "Wide Lean":
+                    case "宽探头":
                         return Config.MemWrites.WideLean.Enabled;
-                    case "Wide Lean Up":
+                    case "宽探头向上":
                         return Config.MemWrites.WideLean.Enabled && WideLean.Direction == WideLean.EWideLeanDirection.Up;
-                    case "Wide Lean Right":
+                    case "宽探头向右":
                         return Config.MemWrites.WideLean.Enabled && WideLean.Direction == WideLean.EWideLeanDirection.Right;
-                    case "Wide Lean Left":
+                    case "宽探头向左":
                         return Config.MemWrites.WideLean.Enabled && WideLean.Direction == WideLean.EWideLeanDirection.Left;
-                    //case "Move Speed":
+                    //case "移动速度":
                     //    return Config.MemWrites.MoveSpeed.Enabled;
 
                     // Memory Writes - World
-                    //case "Disable Shadows":
+                    //case "禁用阴影":
                     //    return Config.MemWrites.DisableShadows;
-                    case "Disable Grass":
+                    case "禁用草地":
                         return Config.MemWrites.DisableGrass;
-                    case "Clear Weather":
+                    case "晴朗天气":
                         return Config.MemWrites.ClearWeather;
-                    case "Time Of Day":
+                    case "时间":
                         return Config.MemWrites.TimeOfDay.Enabled;
-                    case "Full Bright":
+                    case "全亮度":
                         return Config.MemWrites.FullBright.Enabled;
-                    //case "Loot Through Walls":
+                    //case "穿墙摸包":
                     //    return Config.MemWrites.LootThroughWalls.Enabled;
-                    //case "Extended Reach":
+                    //case "延长距离":
                     //    return Config.MemWrites.ExtendedReach.Enabled;
-                    //case "Engage LTW":
+                    //case "启动穿墙缩放":
                     //    return LootThroughWalls.ZoomEngaged;
 
                     // Memory Writes - Camera
-                    case "No Visor":
+                    case "无面罩":
                         return Config.MemWrites.NoVisor;
-                    case "Night Vision":
+                    case "夜视":
                         return Config.MemWrites.NightVision;
-                    case "Thermal Vision":
+                    case "热成像":
                         return Config.MemWrites.ThermalVision;
-                    case "Third Person":
+                    case "第三人称":
                         return Config.MemWrites.ThirdPerson;
-                    case "Owl Mode":
+                    case "猫头鹰模式":
                         return Config.MemWrites.OwlMode;
-                    //case "Instant Zoom":
+                    //case "瞬间缩放":
                     //    return Config.MemWrites.FOV.InstantZoomActive;
 
                     // Memory Writes - Misc
-                    case "Big Heads":
+                    case "大头模式":
                         return Config.MemWrites.BigHead.Enabled;
 
                     // General Settings
-                    case "Aimview Widget":
+                    case "自瞄视野组件":
                         return Config.AimviewWidgetEnabled;
-                    case "Debug Widget":
+                    case "调试组件":
                         return Config.ShowDebugWidget;
-                    case "Player Info Widget":
+                    case "玩家信息组件":
                         return Config.ShowInfoTab;
-                    case "Loot Info Widget":
+                    case "战利品信息组件":
                         return Config.ShowLootInfoWidget;
-                    case "Quest Info Widget":
+                    case "任务信息组件":
                         return Config.ShowQuestInfoWidget;
 
-                    case "Connect Groups":
+                    case "连接队伍":
                         return Config.ConnectGroups;
-                    case "Mask Names":
+                    case "隐藏名称":
                         return Config.MaskNames;
-                    case "Players On Top":
+                    case "玩家置顶":
                         return Config.PlayersOnTop;
-                    case "Zoom Out":
-                    case "Zoom In":
+                    case "缩小":
+                    case "放大":
                         return false;
-                    case "Battle Mode":
+                    case "战斗模式":
                         return Config.BattleMode;
-                    case "Quest Helper":
+                    case "任务助手":
                         return Config.QuestHelper.Enabled;
 
                     default:
-                        Log.WriteLine($"Unknown action name in CheckFeatureActiveState: '{actionName}'");
+                        Log.WriteLine($"CheckFeatureActiveState 中未知的操作名称: '{actionName}'");
                         return false;
                 }
             }
             catch (Exception ex)
             {
-                Log.WriteLine($"Exception in CheckFeatureActiveState for '{actionName}': {ex.Message}");
+                Log.WriteLine($"CheckFeatureActiveState 检查 '{actionName}' 时发生异常: {ex.Message}");
                 return false;
             }
         }
@@ -525,7 +525,7 @@ namespace eft_dma_radar.UI.ESP
             IsAntialias = true,
         };
 
-        private static readonly SKFont _hotkeyFont = new(SKTypeface.FromFamilyName("Consolas"), 13) { Subpixel = true };
+        private static readonly SKFont _hotkeyFont = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 13) { Subpixel = true };
         #endregion
     }
 }

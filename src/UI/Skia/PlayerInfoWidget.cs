@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Tarkov.EFTPlayer;
+using eft_dma_radar.Tarkov.EFTPlayer;
 using eft_dma_radar.UI.Misc;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Misc.Data;
@@ -79,15 +79,15 @@ namespace eft_dma_radar.UI.SKWidgetControl
 
             var sb = new StringBuilder();
 
-            sb.AppendFormat("{0,-" + COL_NAME + "}", "Fac/Name/Lvl ")
-              .AppendFormat("{0,-" + COL_GRP + "}", "Grp")
-              .AppendFormat("{0,-" + COL_VALUE + "}", "Value")
-              .AppendFormat("{0,-" + COL_HANDS + "}", "In Hands")
-              .AppendFormat("{0,-" + COL_DIST + "}", "Dist")
+            sb.AppendFormat("{0,-" + COL_NAME + "}", "阵营/名称/等级 ")
+              .AppendFormat("{0,-" + COL_GRP + "}", "队伍")
+              .AppendFormat("{0,-" + COL_VALUE + "}", "价值")
+              .AppendFormat("{0,-" + COL_HANDS + "}", "手中物品")
+              .AppendFormat("{0,-" + COL_DIST + "}", "距离")
               .AppendFormat("{0,-" + COL_KD + "}", "K/D")
-              .AppendFormat("{0,-" + COL_HOURS + "}", "Hours")
-              .AppendFormat("{0,-" + COL_RAIDS + "}", "Raids")
-              .AppendFormat("{0,-" + COL_SR + "}", "S/R%")
+              .AppendFormat("{0,-" + COL_HOURS + "}", "时长")
+              .AppendFormat("{0,-" + COL_RAIDS + "}", "战局数")
+              .AppendFormat("{0,-" + COL_SR + "}", "存活率")
               .AppendLine();
 
             foreach (var player in filteredPlayers)
@@ -114,9 +114,9 @@ namespace eft_dma_radar.UI.SKWidgetControl
 
             Location = Location;
 
-            Title = "Player Info";
+            Title = "玩家信息";
             RightTitleInfo =
-                $"Hostiles: {hostileCount} | PMC: {pmcCount} | PScav: {pscavCount} | AI: {aiCount} | Boss: {bossCount}";
+                $"敌对: {hostileCount} | PMC: {pmcCount} | 玩家Scav: {pscavCount} | AI: {aiCount} | Boss: {bossCount}";
 
             base.Draw(canvas);
 
@@ -180,7 +180,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
 
             string name =
                 Config.MaskNames && player.IsHuman
-                    ? "<Hidden>"
+                    ? "<隐藏>"
                     : player.Name ?? "--";
 
             string level = "--";
@@ -272,7 +272,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
             IsAntialias = true,
         };
 
-        private static readonly SKFont _playerInfoFont = new(SKTypeface.FromFamilyName("Consolas"), 12) { Subpixel = true };
+        private static readonly SKFont _playerInfoFont = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 12) { Subpixel = true };
 
         private static readonly SKPaint _rowSeparatorPaint = new()
         {

@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+using SkiaSharp;
 using SkiaSharp.Views.WPF;
 using System;
 using System.Linq;
@@ -78,6 +78,6 @@ namespace eft_dma_radar.UI.SKWidgetControl
             IsAntialias = true,
         };
 
-        private static readonly SKFont _debugFont = new(SKTypeface.FromFamilyName("Consolas"), 12) { Subpixel = true };
+        private static readonly SKFont _debugFont = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 12) { Subpixel = true };
     }
 }

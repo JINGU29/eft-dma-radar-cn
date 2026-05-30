@@ -1,4 +1,4 @@
-using eft_dma_radar.Tarkov.GameWorld;
+﻿using eft_dma_radar.Tarkov.GameWorld;
 using eft_dma_radar.UI.Misc;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Misc.Data;
@@ -591,6 +591,6 @@ namespace eft_dma_radar.UI.SKWidgetControl
             IsAntialias = true
         };
 
-        private static readonly SKFont _questFont = new(SKTypeface.FromFamilyName("Consolas"), 10) { Subpixel = true };
+        private static readonly SKFont _questFont = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 10) { Subpixel = true };
     }
 }

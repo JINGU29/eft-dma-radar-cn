@@ -1,4 +1,4 @@
-using eft_dma_radar.Tarkov.GameWorld;
+﻿using eft_dma_radar.Tarkov.GameWorld;
 using eft_dma_radar.UI.Misc;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Misc.Data;
@@ -24,7 +24,7 @@ namespace eft_dma_radar.UI.ESP
         /// Constructs an ESP Quest Info Widget.
         /// </summary>
         public ESPQuestInfoWidget(SKGLControl parent, SKPoint location, bool minimized, float scale)
-            : base(parent, "Quest Info", location, new SKSize(450, 400), scale, true)
+            : base(parent, "任务信息", location, new SKSize(450, 400), scale, true)
         {
             Minimized = minimized;
             _padding = 6f * scale;
@@ -58,7 +58,7 @@ namespace eft_dma_radar.UI.ESP
                 var disabledLineSpacing = _questFont.Spacing;
                 var disabledDrawPt = new SKPoint(ClientRectangle.Left + _padding, ClientRectangle.Top + disabledLineSpacing * 0.8f + _padding);
 
-                var disabledText = "Quest Helper not enabled";
+                var disabledText = "任务助手未启用";
                 canvas.DrawText(disabledText, disabledDrawPt, SKTextAlign.Left, _questFont, _questTextPaint);
 
                 canvas.Restore();
@@ -82,10 +82,10 @@ namespace eft_dma_radar.UI.ESP
             var itemFilterSymbol = _showRequiredItems ? "[x]" : "[ ]";
             var otherQuestsSymbol = _showOtherQuests ? "[x]" : "[ ]";
             var hideCompletedSymbol = _hideCompleted ? "[x]" : "[ ]";
-            textData.Add(($"Filters: {keyFilterSymbol} Keys  {itemFilterSymbol} Items  {otherQuestsSymbol} Other Quests  {hideCompletedSymbol} Hide Completed", false, false));
+            textData.Add(($"过滤器: {keyFilterSymbol} 钥匙  {itemFilterSymbol} 物品  {otherQuestsSymbol} 其他任务  {hideCompletedSymbol} 隐藏已完成", false, false));
 
             var mapName = GetMapDisplayName(GetCurrentMapId());
-            textData.Add(($"Active Quests on {mapName}:", false, false));
+            textData.Add(($"当前地图任务: {mapName}:", false, false));
 
             foreach (var quest in currentMapQuests)
             {
@@ -95,7 +95,7 @@ namespace eft_dma_radar.UI.ESP
             if (_showOtherQuests && otherQuests.Any())
             {
                 textData.Add(("", false, false));
-                textData.Add(("Other Quests:", false, false));
+                textData.Add(("其他任务:", false, false));
 
                 foreach (var quest in otherQuests)
                 {
@@ -174,7 +174,7 @@ namespace eft_dma_radar.UI.ESP
                         var maxObjectiveLength = GetDynamicMaxLength(45);
                         var isCompleted = quest.CompletedConditions.Contains(objective.Id);
                         var completionSymbol = isCompleted ? "?" : "?";
-                        var description = objective.Description ?? "Complete objective";
+                        var description = objective.Description ?? "完成目标";
 
                         QuestObjective parsedObjective = null;
                         if (i < quest.Objectives.Count)
@@ -188,7 +188,7 @@ namespace eft_dma_radar.UI.ESP
                         if (_hideCompleted && isCompleted)
                             continue;
 
-                        var optionalPrefix = (isOptional && Config.QuestHelper.OptionalTaskFilter) ? "[Optional] " : "";
+                        var optionalPrefix = (isOptional && Config.QuestHelper.OptionalTaskFilter) ? "[可选] " : "";
                         var objectiveText = $"  {completionSymbol} {optionalPrefix}{TruncateString(description, maxObjectiveLength - 4)}";
                         textData.Add((objectiveText, isCompleted, true));
 
@@ -199,7 +199,7 @@ namespace eft_dma_radar.UI.ESP
                                 foreach (var key in keyGroup)
                                 {
                                     var maxKeyLength = GetDynamicMaxLength(40);
-                                    var keyText = $"    Key: {TruncateString(key.Name ?? "Unknown Key", maxKeyLength)}";
+                                    var keyText = $"    钥匙: {TruncateString(key.Name ?? "未知钥匙", maxKeyLength)}";
                                     textData.Add((keyText, false, false));
                                 }
                             }
@@ -213,7 +213,7 @@ namespace eft_dma_radar.UI.ESP
                                 {
                                     var itemName = GetItemName(itemId);
                                     var maxItemLength = GetDynamicMaxLength(40);
-                                    var itemText = $"    Item: {TruncateString(itemName, maxItemLength)}";
+                                    var itemText = $"    物品: {TruncateString(itemName, maxItemLength)}";
                                     textData.Add((itemText, false, false));
                                 }
                             }
@@ -233,7 +233,7 @@ namespace eft_dma_radar.UI.ESP
                         var maxObjectiveLength = GetDynamicMaxLength(45);
                         var completionSymbol = objective.IsCompleted ? "?" : "?";
 
-                        var optionalPrefix = (objective.Optional && Config.QuestHelper.OptionalTaskFilter) ? "[Optional] " : "";
+                        var optionalPrefix = (objective.Optional && Config.QuestHelper.OptionalTaskFilter) ? "[可选] " : "";
                         var objectiveText = $"  {completionSymbol} {optionalPrefix}{TruncateString(objective.Description, maxObjectiveLength - 4)}";
 
                         textData.Add((objectiveText, objective.IsCompleted, true));
@@ -244,7 +244,7 @@ namespace eft_dma_radar.UI.ESP
                             {
                                 var itemName = GetItemName(itemId);
                                 var maxItemLength = GetDynamicMaxLength(40);
-                                var itemText = $"    Item: {TruncateString(itemName, maxItemLength)}";
+                                var itemText = $"    物品: {TruncateString(itemName, maxItemLength)}";
                                 textData.Add((itemText, false, false));
                             }
                         }
@@ -256,9 +256,9 @@ namespace eft_dma_radar.UI.ESP
         private string GetItemName(string itemId)
         {
             if (EftDataManager.AllItems.TryGetValue(itemId, out var item))
-                return item.ShortName ?? item.Name ?? "Unknown Item";
+                return item.ShortName ?? item.Name ?? "未知物品";
 
-            return "Unknown Item";
+            return "未知物品";
         }
 
         private void DrawTextWithStrikethrough(SKCanvas canvas, string text, SKPoint point, SKPaint textPaint, bool strikethrough)
@@ -291,11 +291,11 @@ namespace eft_dma_radar.UI.ESP
                 var startX = ClientRectangle.Left + _padding;
                 var currentX = startX;
 
-                var filtersText = "Filters: ";
+                var filtersText = "筛选：";
                 var filtersWidth = _questFont.MeasureText(filtersText);
                 currentX += filtersWidth;
 
-                var keysCheckbox = _showKeys ? "[x] Keys  " : "[ ] Keys  ";
+                var keysCheckbox = _showKeys ? "[?] 钥匙  " : "[ ] 钥匙  ";
                 var keysWidth = _questFont.MeasureText(keysCheckbox);
                 if (point.X >= currentX && point.X <= currentX + keysWidth)
                 {
@@ -582,7 +582,7 @@ namespace eft_dma_radar.UI.ESP
             IsAntialias = true
         };
 
-        private static readonly SKFont _questFont = new(SKTypeface.FromFamilyName("Consolas"), 13) { Subpixel = true };
+        private static readonly SKFont _questFont = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 13) { Subpixel = true };
         #endregion
     }
 }

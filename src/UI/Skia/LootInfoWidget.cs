@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Tarkov.Loot;
+using eft_dma_radar.Tarkov.Loot;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Misc.Data;
 using SkiaSharp;
@@ -32,7 +32,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
             IsAntialias = true,
         };
 
-        internal static SKFont LootOverlayFont { get; } = new(SKTypeface.FromFamilyName("Consolas"), 12) { Subpixel = true };
+        internal static SKFont LootOverlayFont { get; } = new(SKTypeface.FromFamilyName("Microsoft YaHei") ?? SKTypeface.Default, 12) { Subpixel = true };
 
         /// <summary>
         /// Represents a grouped loot item with quantity and total value

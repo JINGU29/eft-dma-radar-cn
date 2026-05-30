@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Tarkov.EFTPlayer;
+using eft_dma_radar.Tarkov.EFTPlayer;
 using eft_dma_radar.UI.ESP;
 using eft_dma_radar.UI.Misc;
 using eft_dma_radar.Common.Maps;
@@ -30,11 +30,11 @@ namespace eft_dma_radar.Tarkov.GameWorld.Exits
 
             if (GameData.MapNames.TryGetValue(location, out string destinationMapName))
             {
-                Name = $"Transit to {destinationMapName}";
+                Name = $"前往{destinationMapName}";
             }
             else
             {
-                Name = $"Transit to {location}";
+                Name = $"前往{location}";
             }
 
             // Get transit position from static JSON data
@@ -94,7 +94,7 @@ namespace eft_dma_radar.Tarkov.GameWorld.Exits
                     }
 
                     // Find matching transit by description - normalize strings for comparison
-                    var searchTerm = NormalizeForComparison(transitName.Replace("Transit to ", ""));
+                    var searchTerm = NormalizeForComparison(transitName.Replace("前往", ""));
                     var transit = mapData.Transits.FirstOrDefault(t =>
                     {
                         if (t.Description == null) return false;

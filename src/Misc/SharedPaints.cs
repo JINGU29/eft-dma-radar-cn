@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+using SkiaSharp;
 
 namespace eft_dma_radar.Common.Misc
 {
@@ -11,7 +11,7 @@ namespace eft_dma_radar.Common.Misc
 
         public static SKPaint PaintBitmapAlpha { get; } = new()
         {
-            Color = SKColor.Empty.WithAlpha(127),
+            Color = SKColor.Empty.WithAlpha(220),
             IsAntialias = true,
         };
 
