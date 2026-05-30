@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.UI.ESP;
+using eft_dma_radar.UI.ESP;
 using eft_dma_radar.Common.DMA.Features;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Unity;
@@ -76,23 +76,23 @@ namespace eft_dma_radar.UI.Pages
 
         private readonly string[] _availableWidgets = new string[]
         {
-            "Quest Info Widget",
-            "Hotkey Info Widget"
+            "任务信息组件",
+            "快捷键信息组件"
         };
 
         private readonly string[] _availableFuserOptions = new string[]
         {
-            "Fireport Aim",
-            "Aimbot FOV",
-            "Raid Stats",
-            "KillFeed",
-            "Aimbot Lock",
-            "Status Text",
-            "FPS",
-            "Energy/Hydration Bar",
-            "Magazine Info",
-            "Closest Player",
-            "Top Loot"
+            "枪口瞄准",
+            "自瞄视野",
+            "战局统计",
+            "击杀信息",
+            "自瞄锁定",
+            "状态文本",
+            "帧率",
+            "能量/水分条",
+            "弹匣信息",
+            "最近玩家",
+            "顶级战利品"
         };
 
         private readonly string[] _availableFuserPlayerInformation = new string[]
@@ -115,6 +115,27 @@ namespace eft_dma_radar.UI.Pages
             "Distance",
             "Value"
         };
+        private static readonly Dictionary<string, string> FuserPlayerInfoDisplayNames = new()
+        {
+            ["ADS"] = "瞄准",
+            ["Ammo Type"] = "弹药类型",
+            ["Distance"] = "距离",
+            ["Health"] = "健康",
+            ["Name"] = "名称",
+            ["KD"] = "K/D",
+            ["Night Vision"] = "夜视",
+            ["Thermal"] = "热成像",
+            ["UBGL"] = "下挂榴弹发射器",
+            ["Weapon"] = "武器"
+        };
+
+        private static readonly Dictionary<string, string> FuserEntityInfoDisplayNames = new()
+        {
+            ["Name"] = "名称",
+            ["Distance"] = "距离",
+            ["Value"] = "价值"
+        };
+
         #endregion
 
         public ESPControl()
@@ -671,7 +692,7 @@ namespace eft_dma_radar.UI.Pages
             }
             catch (Exception ex)
             {
-                Log.WriteLine($"[CHAMS] Failed to apply color to materials: {ex.Message}");
+                Log.WriteLine($"[CHAMS] 为材质应用颜色失败：{ex.Message}");
             }
         }
 
@@ -716,11 +737,11 @@ namespace eft_dma_radar.UI.Pages
                                 //NativeMethods.SetMaterialColor(colorMem, material.Address, material.ColorInvisible, invisibleUnityColor);
                             }
 
-                            Log.WriteLine($"[CHAMS] Applied configured colors to {materialMode}/{entityType}");
+                            Log.WriteLine($"[CHAMS] 已为 {materialMode}/{entityType} 应用配置颜色");
                         }
                         catch (Exception ex)
                         {
-                            Log.WriteLine($"[CHAMS] Failed to apply configured colors to {materialMode}/{entityType}: {ex.Message}");
+                            Log.WriteLine($"[CHAMS] 为 {materialMode}/{entityType} 应用配置颜色失败：{ex.Message}");
                         }
                     }
                 }
@@ -851,9 +872,9 @@ namespace eft_dma_radar.UI.Pages
 
             var (statusText, statusColor) = materialsCount switch
             {
-                0 => ("Not Loaded", Colors.Red),
-                var count when count < expectedCount => ("Partial", Colors.Yellow),
-                _ => ("Complete", Colors.Green)
+                0 => ("未加载", Colors.Red),
+                var count when count < expectedCount => ("部分加载", Colors.Yellow),
+                _ => ("完整", Colors.Green)
             };
 
             txtChamsMaterialStatus.Text = statusText;
@@ -892,7 +913,7 @@ namespace eft_dma_radar.UI.Pages
 
                             await Dispatcher.InvokeAsync(() =>
                             {
-                                NotificationsShared.Info("[CHAMS] All materials already loaded!");
+                                NotificationsShared.Info("[CHAMS] 所有材质已加载完成！");
                             });
 
                             return true;
@@ -910,7 +931,7 @@ namespace eft_dma_radar.UI.Pages
                         {
                             txtChamsMaterialStatus.Text = "Refreshing";
                             txtChamsMaterialStatus.Foreground = new SolidColorBrush(Colors.Blue);
-                            NotificationsShared.Info($"[CHAMS] Starting targeted refresh for {status.MissingCombos.Count} missing materials...");
+                            NotificationsShared.Info($"[CHAMS] 开始针对 {status.MissingCombos.Count} 个缺失材质进行刷新...");
                         });
 
                         return ChamsManager.SmartRefresh();
@@ -933,13 +954,13 @@ namespace eft_dma_radar.UI.Pages
                 if (finalStatus.IsComplete)
                 {
                     Log.WriteLine("[CHAMS REFRESH] All materials successfully loaded!");
-                    NotificationsShared.Success("[CHAMS] All materials successfully loaded!");
+                    NotificationsShared.Success("[CHAMS] 所有材质加载成功！");
                 }
                 else if (finalStatus.LoadedCount > 0)
                 {
                     var recovered = Math.Max(0, finalStatus.LoadedCount);
                     Log.WriteLine($"[CHAMS REFRESH] Partially successful: {recovered} materials loaded");
-                    NotificationsShared.Info($"[CHAMS] {finalStatus.LoadedCount}/{finalStatus.ExpectedCount} total loaded.");
+                    NotificationsShared.Info($"[CHAMS] 总共已加载 {finalStatus.LoadedCount}/{finalStatus.ExpectedCount}。");
 
                     if (finalStatus.MissingCombos.Any())
                     {
@@ -950,7 +971,7 @@ namespace eft_dma_radar.UI.Pages
                 else
                 {
                     Log.WriteLine("[CHAMS REFRESH] Refresh failed - no materials recovered");
-                    NotificationsShared.Error("[CHAMS] Refresh failed. Check logs for details.");
+                    NotificationsShared.Error("[CHAMS] 刷新失败。请查看日志了解详细信息。");
                 }
 
                 if (finalStatus.IsComplete || finalStatus.LoadedCount > 0)
@@ -973,7 +994,7 @@ namespace eft_dma_radar.UI.Pages
             catch (Exception ex)
             {
                 Log.WriteLine($"[CHAMS REFRESH] Unexpected error: {ex.Message}");
-                NotificationsShared.Error($"[CHAMS] Refresh error: {ex.Message}");
+                NotificationsShared.Error($"[CHAMS] 刷新错误：{ex.Message}");
             }
             finally
             {
@@ -1304,8 +1325,8 @@ namespace eft_dma_radar.UI.Pages
                 }
             }
 
-            playerTypeItems.Add(new ComboBoxItem { Content = "Aimbot Locked", Tag = "AimbotLocked" });
-            playerTypeItems.Add(new ComboBoxItem { Content = "Focused", Tag = "Focused" });
+            playerTypeItems.Add(new ComboBoxItem { Content = "自瞄锁定", Tag = "AimbotLocked" });
+            playerTypeItems.Add(new ComboBoxItem { Content = "已聚焦", Tag = "Focused" });
             playerTypeItems.Sort((x, y) => string.Compare(x.Content.ToString(), y.Content.ToString()));
 
             foreach (var item in playerTypeItems)
@@ -1317,7 +1338,8 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (var info in _availableFuserPlayerInformation)
             {
-                ccbFuserPlayerInformation.Items.Add(new CheckComboBoxItem { Content = info });
+                var displayName = FuserPlayerInfoDisplayNames.TryGetValue(info, out var dn) ? dn : info;
+                ccbFuserPlayerInformation.Items.Add(new CheckComboBoxItem { Content = displayName, Tag = info });
             }
 
             if (cboFuserPlayerType.Items.Count > 0)
@@ -1349,8 +1371,8 @@ namespace eft_dma_radar.UI.Pages
 
                 foreach (CheckComboBoxItem item in ccbFuserPlayerInformation.Items)
                 {
-                    var info = item.Content.ToString();
-                    item.IsSelected = settings.Information.Contains(info);
+                    var infoKey = item.Tag?.ToString() ?? item.Content.ToString();
+                    item.IsSelected = settings.Information.Contains(infoKey);
                 }
 
                 foreach (ComboBoxItem item in cboPlayerRenderMode.Items)
@@ -1380,8 +1402,8 @@ namespace eft_dma_radar.UI.Pages
             var showKD = false;
             foreach (CheckComboBoxItem item in ccbFuserPlayerInformation.SelectedItems)
             {
-                var info = item.Content.ToString();
-                if (info == "KD")
+                var infoKey = item.Tag?.ToString() ?? item.Content.ToString();
+                if (infoKey == "KD")
                 {
                     showKD = true;
                     break;
@@ -1408,7 +1430,7 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (CheckComboBoxItem item in ccbFuserPlayerInformation.SelectedItems)
             {
-                settings.Information.Add(item.Content.ToString());
+                settings.Information.Add(item.Tag?.ToString() ?? item.Content.ToString());
             }
 
             settings.RenderMode = (ESPPlayerRenderMode)cboPlayerRenderMode.SelectedIndex;
@@ -1429,22 +1451,22 @@ namespace eft_dma_radar.UI.Pages
 
             var entityTypeItems = new List<ComboBoxItem>
             {
-                new ComboBoxItem { Content = "Static Container", Tag = "StaticContainer" },
-                new ComboBoxItem { Content = "Corpse", Tag = "Corpse" },
-                new ComboBoxItem { Content = "Regular Loot", Tag = "RegularLoot" },
-                new ComboBoxItem { Content = "Important Loot", Tag = "ImportantLoot" },
-                new ComboBoxItem { Content = "Quest Item", Tag = "QuestItem" },
-                new ComboBoxItem { Content = "Quest Zone", Tag = "QuestZone" },
-                new ComboBoxItem { Content = "Switch", Tag = "Switch" },
-                new ComboBoxItem { Content = "Transit", Tag = "Transit" },
-                new ComboBoxItem { Content = "Exfil", Tag = "Exfil" },
-                new ComboBoxItem { Content = "Door", Tag = "Door" },
-                new ComboBoxItem { Content = "Grenade", Tag = "Grenade" },
-                new ComboBoxItem { Content = "Tripwire", Tag = "Tripwire" },
-                new ComboBoxItem { Content = "Mine", Tag = "Mine" },
-                new ComboBoxItem { Content = "Mortar Projectile", Tag = "MortarProjectile" },
-                new ComboBoxItem { Content = "Airdrop", Tag = "Airdrop" },
-                new ComboBoxItem { Content = "BTR", Tag = "BTR" }
+                new ComboBoxItem { Content = "静态容器", Tag = "StaticContainer" },
+                new ComboBoxItem { Content = "尸体", Tag = "Corpse" },
+                new ComboBoxItem { Content = "普通战利品", Tag = "RegularLoot" },
+                new ComboBoxItem { Content = "重要战利品", Tag = "ImportantLoot" },
+                new ComboBoxItem { Content = "任务物品", Tag = "QuestItem" },
+                new ComboBoxItem { Content = "任务区域", Tag = "QuestZone" },
+                new ComboBoxItem { Content = "开关", Tag = "Switch" },
+                new ComboBoxItem { Content = "转移点", Tag = "Transit" },
+                new ComboBoxItem { Content = "撤离点", Tag = "Exfil" },
+                new ComboBoxItem { Content = "门", Tag = "Door" },
+                new ComboBoxItem { Content = "手榴弹", Tag = "Grenade" },
+                new ComboBoxItem { Content = "绊线", Tag = "Tripwire" },
+                new ComboBoxItem { Content = "地雷", Tag = "Mine" },
+                new ComboBoxItem { Content = "迫击炮弹", Tag = "MortarProjectile" },
+                new ComboBoxItem { Content = "空投", Tag = "Airdrop" },
+                new ComboBoxItem { Content = "装甲车", Tag = "BTR" }
             };
 
             entityTypeItems.Sort((x, y) => string.Compare(x.Content.ToString(), y.Content.ToString()));
@@ -1458,7 +1480,8 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (var info in _availableFuserEntityInformation)
             {
-                ccbFuserEntityInformation.Items.Add(new CheckComboBoxItem { Content = info });
+                var displayName = FuserEntityInfoDisplayNames.TryGetValue(info, out var dn) ? dn : info;
+                ccbFuserEntityInformation.Items.Add(new CheckComboBoxItem { Content = displayName, Tag = info });
             }
 
             if (cboFuserEntityType.Items.Count > 0)
@@ -1483,9 +1506,9 @@ namespace eft_dma_radar.UI.Pages
 
                 foreach (CheckComboBoxItem item in ccbFuserEntityInformation.Items)
                 {
-                    var info = item.Content.ToString();
+                    var infoKey = item.Tag?.ToString() ?? item.Content.ToString();
 
-                    if (settings.Information.Contains(info))
+                    if (settings.Information.Contains(infoKey))
                         item.IsSelected = true;
                     else
                         item.IsSelected = false;
@@ -1558,7 +1581,7 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (CheckComboBoxItem item in ccbFuserEntityInformation.SelectedItems)
             {
-                settings.Information.Add(item.Content.ToString());
+                settings.Information.Add(item.Tag?.ToString() ?? item.Content.ToString());
             }
 
             if (cboEntityRenderMode.SelectedItem is ComboBoxItem selectedItem)
@@ -1646,17 +1669,17 @@ namespace eft_dma_radar.UI.Pages
 
                 var isSelected = content switch
                 {
-                    "Fireport Aim" => cfg.ShowFireportAim,
-                    "Aimbot FOV" => cfg.ShowAimFOV,
-                    "Raid Stats" => cfg.ShowRaidStats,
-                    "KillFeed" => cfg.ShowKillFeed,
-                    "Aimbot Lock" => cfg.ShowAimLock,
-                    "Status Text" => cfg.ShowStatusText,
+                    "枪口瞄准线" => cfg.ShowFireportAim,
+                    "自瞄FOV" => cfg.ShowAimFOV,
+                    "战局统计" => cfg.ShowRaidStats,
+                    "击杀信息" => cfg.ShowKillFeed,
+                    "自瞄锁定提示" => cfg.ShowAimLock,
+                    "状态文本" => cfg.ShowStatusText,
                     "FPS" => cfg.ShowFPS,
-                    "Energy/Hydration Bar" => cfg.EnergyHydrationBar,
-                    "Magazine Info" => cfg.ShowMagazine,
-                    "Closest Player" => cfg.ShowClosestPlayer,
-                    "Top Loot" => cfg.ShowTopLoot,
+                    "体力/水分条" => cfg.EnergyHydrationBar,
+                    "弹匣信息" => cfg.ShowMagazine,
+                    "最近玩家" => cfg.ShowClosestPlayer,
+                    "顶部战利品" => cfg.ShowTopLoot,
                     _ => false
                 };
 

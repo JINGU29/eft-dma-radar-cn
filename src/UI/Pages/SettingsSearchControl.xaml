@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Search Settings" Style="{StaticResource PanelHeaderText}"/>
+                <TextBlock Text="搜索设置" Style="{StaticResource PanelHeaderText}"/>
                 <Border Grid.Column="1" Style="{StaticResource CloseButtonBorder}">
                     <Button x:Name="btnCloseHeader" Style="{StaticResource CloseButton}"/>
                 </Border>
@@ -47,11 +47,11 @@
                     </Grid.ColumnDefinitions>
 
                     <hc:TextBox x:Name="txtSearchSettings"
-                                hc:InfoElement.Placeholder="Search by name, label, key (Tag), or path"
+                                hc:InfoElement.Placeholder="按名称、标签、键 (Tag) 或路径搜索"
                                 Height="32"
                                 VerticalAlignment="Center"/>
 
-                    <Button x:Name="btnClearSearch" Grid.Column="1" Content="Clear"
+                    <Button x:Name="btnClearSearch" Grid.Column="1" Content="清除"
                             Height="32" Margin="8,0,0,0"/>
                 </Grid>
 

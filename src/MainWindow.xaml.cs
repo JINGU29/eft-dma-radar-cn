@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using eft_dma_radar.Tarkov;
 using eft_dma_radar.Tarkov.API;
 using eft_dma_radar.Tarkov.EFTPlayer;
@@ -276,9 +276,9 @@ namespace eft_dma_radar
         public void UpdateWindowTitle(string configName)
         {
             if (string.IsNullOrWhiteSpace(configName))
-                TitleTextBlock.Text = "EFT DMA Radar";
+                TitleTextBlock.Text = "逃离塔科夫 DMA 雷达";
             else
-                TitleTextBlock.Text = $"EFT DMA Radar - {configName}";
+                TitleTextBlock.Text = $"逃离塔科夫 DMA 雷达 - {configName}";
         }
         private List<Tarkov.GameWorld.Exits.Switch> Switches = new List<Tarkov.GameWorld.Exits.Switch>();
         public static List<Tarkov.GameWorld.Interactables.Door> Doors = new List<Tarkov.GameWorld.Interactables.Door>();
@@ -333,7 +333,7 @@ namespace eft_dma_radar
             }
             catch (Exception ex)
             {
-                NotificationsShared.Error($"Error: {ex.Message}\n{ex.StackTrace}");
+                NotificationsShared.Error($"错误：{ex.Message}\n{ex.StackTrace}");
             }
         }
 
@@ -976,7 +976,7 @@ namespace eft_dma_radar
 
         private void GameNotRunningStatus(SKCanvas canvas)
         {
-            const string notRunning = "Game Process Not Running!";
+            const string notRunning = "游戏进程未运行！";
             float textWidth = SKPaints.RadarFontRegular48.MeasureText(notRunning);
             canvas.DrawText(notRunning, ((float)ActiveCanvas.ActualWidth / 2) - textWidth / 2f, (float)ActiveCanvas.ActualHeight / 2,
                 SKTextAlign.Left, SKPaints.RadarFontRegular48, SKPaints.TextRadarStatus);
@@ -985,9 +985,9 @@ namespace eft_dma_radar
 
         private void StartingUpStatus(SKCanvas canvas)
         {
-            const string startingUp1 = "Starting Up.";
-            const string startingUp2 = "Starting Up..";
-            const string startingUp3 = "Starting Up...";
+            const string startingUp1 = "正在启动.";
+            const string startingUp2 = "正在启动..";
+            const string startingUp3 = "正在启动...";
             string status = _statusOrder == 1 ?
                 startingUp1 : _statusOrder == 2 ?
                 startingUp2 : startingUp3;
@@ -1000,7 +1000,7 @@ namespace eft_dma_radar
         private void WaitingForRaidStatus(SKCanvas canvas)
         {
             string dots = _statusOrder == 1 ? "." : _statusOrder == 2 ? ".." : "...";
-            string stageText = "Waiting for Raid Start";
+            string stageText = "等待游戏开始";
 
             var stage = MatchingProgressResolver.GetCachedStage();
             if (stage != Enums.EMatchingStage.None)
@@ -1043,7 +1043,7 @@ namespace eft_dma_radar
                 string? label = null;
 
                 if (memWritesEnabled && Config.MemWrites.RageMode)
-                    label = MemWriteFeature<Aimbot>.Instance.Enabled ? $"{mode.GetDescription()}: RAGE MODE" : "RAGE MODE";
+                    label = MemWriteFeature<Aimbot>.Instance.Enabled ? $"{mode.GetDescription()}: 狂暴模式" : "狂暴模式";
 
                 if (memWritesEnabled && aimEnabled)
                 {
@@ -1771,12 +1771,12 @@ namespace eft_dma_radar
                     btnFreeMode.Background = new SolidColorBrush(Colors.DarkRed);
                 }
 
-                btnFreeMode.ToolTip = "Free Mode (ON) - Click and drag to pan";
+                btnFreeMode.ToolTip = "自由模式 (开) - 点击并拖动以平移";
             }
             else
             {
                 btnFreeMode.Background = new SolidColorBrush(Colors.Transparent);
-                btnFreeMode.ToolTip = "Free Mode (OFF) - Map follows player";
+                btnFreeMode.ToolTip = "自由模式 (关) - 地图跟随玩家";
             }
 
             ActiveCanvas.InvalidateVisual();

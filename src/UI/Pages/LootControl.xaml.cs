@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Tarkov.Features;
+using eft_dma_radar.Tarkov.Features;
 using eft_dma_radar.Tarkov.Features.MemoryWrites;
 using eft_dma_radar.Tarkov.Features.MemoryWrites.Patches;
 using eft_dma_radar.Tarkov.Loot;
@@ -45,10 +45,10 @@ namespace eft_dma_radar.UI.Pages
         private bool _isLoadingLootFilterSettings = false;
         private readonly string[] _availableLootFilterOptions = new string[]
         {
-            "Show Meds",
-            "Show Food",
-            "Show Weapons",
-            "Show Backpacks",
+            "显示药品",
+            "显示食物",
+            "显示武器",
+            "显示背包",
             "Corpse Markers (X)"
         };
         #endregion
@@ -243,10 +243,10 @@ namespace eft_dma_radar.UI.Pages
 
             var optionsToUpdate = new Dictionary<string, bool>
             {
-                ["Show Meds"] = LootFilterControl.ShowMeds,
-                ["Show Food"] = LootFilterControl.ShowFood,
-                ["Show Backpacks"] = LootFilterControl.ShowBackpacks,
-                ["Show Weapons"] = LootFilterControl.ShowWeapons,
+                ["显示药品"] = LootFilterControl.ShowMeds,
+                ["显示食物"] = LootFilterControl.ShowFood,
+                ["显示背包"] = LootFilterControl.ShowBackpacks,
+                ["显示武器"] = LootFilterControl.ShowWeapons,
                 ["Corpse Markers (X)"] = Config.ShowCorpseMarkers
             };
 
@@ -377,11 +377,12 @@ namespace eft_dma_radar.UI.Pages
             }
 
             var entries = EftDataManager.AllContainers.Values
-                                        .OrderBy(x => x.Name)
-                                        .Select(x => new ContainerListItem(x)
+                                        .GroupBy(x => x.Name)
+                                        .Select(g => new ContainerListItem(g.First())
                                         {
-                                            IsSelected = TrackedContainers.TryGetValue(x.BsgId, out bool isSelected) && isSelected
+                                            IsSelected = g.Any(x => TrackedContainers.TryGetValue(x.BsgId, out bool isSelected) && isSelected)
                                         })
+                                        .OrderBy(x => x.Name)
                                         .ToArray();
 
             listContainers.ItemsSource = entries;
@@ -512,10 +513,10 @@ namespace eft_dma_radar.UI.Pages
             if (_isLoadingLootFilterSettings)
                 return;
 
-            LootFilterControl.ShowMeds = IsFilterOptionSelected("Show Meds");
-            LootFilterControl.ShowFood = IsFilterOptionSelected("Show Food");
-            LootFilterControl.ShowWeapons = IsFilterOptionSelected("Show Weapons");
-            LootFilterControl.ShowBackpacks = IsFilterOptionSelected("Show Backpacks");
+            LootFilterControl.ShowMeds = IsFilterOptionSelected("显示药品");
+            LootFilterControl.ShowFood = IsFilterOptionSelected("显示食物");
+            LootFilterControl.ShowWeapons = IsFilterOptionSelected("显示武器");
+            LootFilterControl.ShowBackpacks = IsFilterOptionSelected("显示背包");
             Config.ShowCorpseMarkers = IsFilterOptionSelected("Corpse Markers (X)");
 
             Config.Save();

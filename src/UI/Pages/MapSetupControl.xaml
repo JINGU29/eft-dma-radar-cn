@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Map Setup" Style="{StaticResource PanelHeaderText}"/>
+                <TextBlock Text="地图设置" Style="{StaticResource PanelHeaderText}"/>
 
                 <!-- Close button -->
                 <Border Grid.Column="1" Style="{StaticResource CloseButtonBorder}">
@@ -40,7 +40,7 @@
 
             <hc:SimpleStackPanel Margin="5,0,5,0">
                 <!-- Player Position Section -->
-                <TextBlock Text="LocalPlayer Position" FontWeight="SemiBold" 
+                <TextBlock Text="本地玩家位置" FontWeight="SemiBold" 
                            Style="{StaticResource LabelText}" 
                            Margin="0,8,0,8"/>
 
@@ -89,7 +89,7 @@
                 </Grid>
 
                 <!-- Map Configuration Section -->
-                <TextBlock Text="Map Configuration" FontWeight="SemiBold" 
+                <TextBlock Text="地图配置" FontWeight="SemiBold" 
                            Style="{StaticResource LabelText}" 
                            Margin="0,8,0,8"/>
 
@@ -137,7 +137,7 @@
                                       Margin="0,0,15,0"/>
 
                     <!-- Scale Value -->
-                    <TextBlock Text="Scale:" Grid.Row="0" Grid.Column="4"
+                    <TextBlock Text="缩放:" Grid.Row="0" Grid.Column="4"
                                Style="{StaticResource LabelText}" 
                                VerticalAlignment="Center"
                                Margin="0,0,5,0"/>

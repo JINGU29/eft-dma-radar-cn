@@ -23,14 +23,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Settings" Style="{StaticResource PanelHeaderText}"/>
+                <TextBlock Text="设置" Style="{StaticResource PanelHeaderText}"/>
 
                 <!-- Import/Export Menu Button -->
                 <Button x:Name="btnMenu" Tag="ContextMenu"
                         Grid.Column="1" 
                         Width="26" Height="26" Margin="0,0,5,0"
                         Style="{StaticResource ButtonIcon}"
-                        ToolTip="Import/Export Options"
+                        ToolTip="导入/导出选项"
                         hc:IconElement.Width="18"
                         hc:IconElement.Geometry="{StaticResource EllipsisVerticalGeometry}">
                     <Button.ContextMenu>
@@ -38,7 +38,7 @@
                                      Placement="Bottom" 
                                      HorizontalOffset="-85"
                                      MaxWidth="200">
-                            <MenuItem x:Name="mnuExportConfig" Tag="ExportConfig" Header="Export">
+                            <MenuItem x:Name="mnuExportConfig" Tag="ExportConfig" Header="导出">
                                 <MenuItem.Icon>
                                     <Path Width="14" Height="14"
                                           Stretch="Uniform"
@@ -47,7 +47,7 @@
                                 </MenuItem.Icon>
                             </MenuItem>
                             <Separator Margin="-28,0,0,0"/>
-                            <MenuItem x:Name="mnuImportConfig" Tag="ImportConfig" Header="Import">
+                            <MenuItem x:Name="mnuImportConfig" Tag="ImportConfig" Header="导入">
                                 <MenuItem.Icon>
                                     <Path Width="14" Height="14"
                                           Stretch="Uniform"
@@ -75,14 +75,14 @@
                           Background="Transparent"
                           BorderThickness="0">
 
-                <!-- General Tab -->
-                <hc:TabItem Header="General">
+                <!-- 通用设置 -->
+                <hc:TabItem Header="通用">
                     <ScrollViewer Style="{StaticResource PanelScrollViewer}">
                         <hc:SimpleStackPanel>
-                            <!-- General Options Section -->
-                            <Expander x:Name="expGeneralOptions" Header="General Options" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 通用选项 -->
+                            <Expander x:Name="expGeneralOptions" Header="通用选项" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                                    <!-- Checkboxes -->
+                                    <!-- 复选框 -->
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -97,9 +97,9 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <CheckBox x:Name="chkMapSetup" Content="Show Map Setup" Tag="ShowMapSetup"
+                                        <CheckBox x:Name="chkMapSetup" Content="显示地图设置" Tag="ShowMapSetup"
                                                   Style="{StaticResource DynamicCheckBoxStyle}" Grid.Row="0" Grid.Column="0" Margin="0,0,5,8"/>
-                                        <Button x:Name="btnForceOffsetsUpdate" Content="Force Offsets Update"
+                                        <Button x:Name="btnForceOffsetsUpdate" Content="强制更新偏移"
                                                 Tag="ForceOffsetsUpdate"
                                                 Style="{StaticResource ButtonPrimary}"
                                                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
@@ -111,20 +111,20 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Radar FPS Limit" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="雷达帧率限制" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <hc:NumericUpDown x:Name="nudFPSLimit" Value="60" Minimum="1" Maximum="500" Tag="FPSLimit"
                                                           Grid.Column="1" Width="70" HorizontalAlignment="Left"/>
                                     </Grid>
 
-                                    <!-- UI Scale -->
+                                    <!-- 界面缩放 -->
                                     <hc:SimpleStackPanel Margin="0,5,0,0">
                                         <Grid Margin="0,0,0,5">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="120"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="UI Scale" Style="{StaticResource LabelText}" 
+                                            <TextBlock Text="界面缩放" Style="{StaticResource LabelText}" 
                                                        VerticalAlignment="Center" Grid.Column="0"/>
                                             <controls:TextValueSlider
                                                 x:Name="sldrUIScale" Tag="UIScale"
@@ -136,69 +136,69 @@
                                         </Grid>
                                     </hc:SimpleStackPanel>
 
-                                    <!-- Widgets -->
+                                    <!-- 窗口组件 -->
                                     <hc:CheckComboBox x:Name="ccbWidgets" Grid.Column="1" Margin="0,5,0,8"
                                                           Style="{StaticResource CheckComboBoxExtend}"
-                                                          hc:TitleElement.Title="Widgets"
+                                                          hc:TitleElement.Title="窗口组件"
                                                           hc:TitleElement.TitlePlacement="Top"
-                                                          hc:InfoElement.Placeholder="Aimview Widget, Debug Widget..."/>
+                                                          hc:InfoElement.Placeholder="瞄准视图组件, 调试组件..."/>
 
-                                    <!-- General Options -->
+                                    <!-- 雷达选项 -->
                                     <hc:CheckComboBox x:Name="ccbGeneralOptions" Grid.Column="1" Margin="0,0,0,0"
                                                           Style="{StaticResource CheckComboBoxExtend}"
-                                                          hc:TitleElement.Title="Radar Options"
+                                                          hc:TitleElement.Title="雷达选项"
                                                           hc:TitleElement.TitlePlacement="Top"
-                                                          hc:InfoElement.Placeholder="Connect Groups, Mask Names..."/>
+                                                          hc:InfoElement.Placeholder="连接队伍, 隐藏名称..."/>
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Font Picker -->
-                            <Expander Header="Font" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 字体选择 -->
+                            <Expander Header="字体" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,8">
 
-                                    <!-- Dropdown -->
+                                    <!-- 下拉框 -->
                                     <Grid Margin="0,0,0,8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Active Font" Style="{StaticResource LabelText}"
+                                        <TextBlock Text="当前字体" Style="{StaticResource LabelText}"
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <ComboBox x:Name="cmbFontSelector"
                                                   Grid.Column="1"
-                                                  ToolTip="Fonts loaded from the fonts/ folder next to the .exe"/>
+                                                  ToolTip="从 .exe 旁的 fonts/ 文件夹加载字体"/>
                                     </Grid>
 
-                                    <!-- Upload button -->
+                                    <!-- 上传按钮 -->
                                     <Button x:Name="btnUploadFont"
-                                            Content="Upload Font (.ttf / .otf)"
+                                            Content="上传字体 (.ttf / .otf)"
                                             Style="{StaticResource ButtonPrimary}"
                                             HorizontalAlignment="Left"
                                             Click="BtnUploadFont_Click"
-                                            ToolTip="Browse for a .ttf or .otf font file to add to the fonts/ folder"/>
+                                            ToolTip="浏览并添加 .ttf 或 .otf 字体文件到 fonts/ 文件夹"/>
 
-                                    <!-- Remove button -->
+                                    <!-- 删除按钮 -->
                                     <Button x:Name="btnRemoveFont"
-                                            Content="Remove Selected Font"
+                                            Content="删除选中字体"
                                             Style="{StaticResource ButtonDanger}"
                                             HorizontalAlignment="Left"
                                             Margin="0,6,0,0"
                                             Click="BtnRemoveFont_Click"
-                                            ToolTip="Delete the selected font from the fonts/ folder and revert to default"/>
+                                            ToolTip="从 fonts/ 文件夹删除选中字体并恢复为默认字体"/>
 
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Player Information Expander -->
-                            <Expander x:Name="expPlayerInformation" Header="Player Information" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 玩家信息 -->
+                            <Expander x:Name="expPlayerInformation" Header="玩家信息" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                                    <!-- Player Type Selection -->
+                                    <!-- 玩家类型选择 -->
                                     <Grid Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Player Type" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="玩家类型" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
                                         <hc:ComboBox x:Name="cboPlayerType" Grid.Column="1"/>
                                     </Grid>
 
@@ -213,55 +213,55 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <CheckBox x:Name="chkHeightIndicator" Content="Height Indicator" Tag="PlayerHeightIndicator"
+                                        <CheckBox x:Name="chkHeightIndicator" Content="高度指示器" Tag="PlayerHeightIndicator"
                                                   Grid.Row="0" Grid.Column="0" Margin="0,0,5,8"
                                                   Style="{StaticResource DynamicCheckBoxStyle}"/>
 
-                                        <CheckBox x:Name="chkImportantIndicator" Content="Important Indicator" Tag="ImportantIndicator"
+                                        <CheckBox x:Name="chkImportantIndicator" Content="重要指示器" Tag="ImportantIndicator"
                                                   Grid.Row="0" Grid.Column="1" Margin="5,0,0,8"
                                                   Style="{StaticResource DynamicCheckBoxStyle}"/>
 
-                                        <CheckBox x:Name="chkHighAlert" Content="High Alert" Tag="HighAlert"
+                                        <CheckBox x:Name="chkHighAlert" Content="高级警报" Tag="HighAlert"
                                                   Grid.Row="1" Grid.Column="0" Margin="0,0,5,8"
                                                   Style="{StaticResource DynamicCheckBoxStyle}"/>
 
-                                        <CheckBox x:Name="chkShowImportantPlayerLoot" Content="Show Important Loot" Tag="ShowImportantPlayerLoot"
+                                        <CheckBox x:Name="chkShowImportantPlayerLoot" Content="显示重要战利品" Tag="ShowImportantPlayerLoot"
                                                   Grid.Row="1" Grid.Column="1" Margin="5,0,0,8"
                                                   Style="{StaticResource DynamicCheckBoxStyle}"/>
                                     </Grid>
 
-                                    <!-- Render Distance -->
+                                    <!-- 渲染距离 -->
                                     <Grid Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Render Distance" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="渲染距离" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <controls:TextValueSlider
                                             x:Name="sldrPlayerTypeRenderDistance" Tag="PlayerTypeRenderDistance"
                                             Minimum="0" Maximum="1500"
-                                            MinContent="Off" MaxContent="Max"
+                                            MinContent="关闭" MaxContent="最大"
                                             SmallChange="1" TickFrequency="1"
                                             IsSnapToTickEnabled="True"
                                             ContentStringFormat="{}{0:0m}" 
                                             Grid.Column="1"/>
                                     </Grid>
 
-                                    <!-- Aimline Length -->
+                                    <!-- 瞄准线长度 -->
                                     <Grid Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Aimline Length" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="瞄准线长度" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <controls:TextValueSlider
                                             x:Name="sldrPlayerTypeAimlineLength" Tag="PlayerTypeAimlineLength"
                                             Minimum="0" Maximum="1000"
-                                            MinContent="Off" MaxContent="Max"
+                                            MinContent="关闭" MaxContent="最大"
                                             SmallChange="1" TickFrequency="1"
                                             IsSnapToTickEnabled="True"
                                             ContentStringFormat="{}{0:0m}" 
@@ -269,13 +269,13 @@
                                     </Grid>
 
                                     <hc:SimpleStackPanel x:Name="playerSpecificSettings" Margin="0,0,0,0">
-                                        <!-- KD Settings -->
+                                        <!-- KD 设置 -->
                                         <Grid x:Name="kdSettings" Visibility="Collapsed" Margin="0,0,0,4">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="120"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Minimum KD" Style="{StaticResource LabelText}" 
+                                            <TextBlock Text="最低 KD" Style="{StaticResource LabelText}" 
                                                 VerticalAlignment="Center" Grid.Column="0"/>
                                             <controls:TextValueSlider
                                                 x:Name="sldrMinimumKD" Tag="MinimumKD"
@@ -287,114 +287,114 @@
                                         </Grid>
                                     </hc:SimpleStackPanel>
 
-                                    <!-- Information Selection -->
+                                    <!-- 信息选择 -->
                                     <hc:CheckComboBox x:Name="ccbInformation" Grid.Column="1" Margin="0,0,0,0"
                                                           Style="{StaticResource CheckComboBoxExtend}"
-                                                          hc:TitleElement.Title="Information"
+                                                          hc:TitleElement.Title="信息"
                                                           hc:TitleElement.TitlePlacement="Top"
-                                                          hc:InfoElement.Placeholder="Name, Health, Height, Distance, Tag..."/>
+                                                          hc:InfoElement.Placeholder="名称, 血量, 高度, 距离, 标签..."/>
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Entity Information Expander -->
-                            <Expander x:Name="expEntityInformation" Header="Entity Information" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 实体信息 -->
+                            <Expander x:Name="expEntityInformation" Header="实体信息" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                                    <!-- Entity Type Selection -->
+                                    <!-- 实体类型选择 -->
                                     <Grid Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Entity Type" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="实体类型" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
                                         <hc:ComboBox x:Name="cboEntityType" Grid.Column="1"/>
                                     </Grid>
 
                                     <hc:SimpleStackPanel x:Name="entitySpecificSettings" Margin="0,0,0,0">
-                                        <!-- Corpse Settings -->
+                                        <!-- 尸体设置 -->
                                         <Grid x:Name="corpseSettings" Visibility="Collapsed">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox x:Name="chkShowImportantCorpseLoot" Content="Show Important Loot" Tag="ShowImportantCorpseLoot"
+                                            <CheckBox x:Name="chkShowImportantCorpseLoot" Content="显示重要战利品" Tag="ShowImportantCorpseLoot"
                                                       Style="{StaticResource DynamicCheckBoxStyle}" Grid.Column="0" Margin="0,0,5,8"/>
                                         </Grid>
                                         
-                                        <!-- Grenade Settings -->
+                                        <!-- 手雷设置 -->
                                         <Grid x:Name="grenadeSettings" Visibility="Collapsed">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox x:Name="chkExplosiveRadius" Content="Show Radius" Tag="ShowExplosiveRadius"
+                                            <CheckBox x:Name="chkExplosiveRadius" Content="显示半径" Tag="ShowExplosiveRadius"
                                                       Style="{StaticResource DynamicCheckBoxStyle}" Grid.Column="0" Margin="0,0,5,8"/>
                                         </Grid>
 
-                                        <!-- Door Settings -->
+                                        <!-- 门设置 -->
                                         <Grid x:Name="doorSettings" Visibility="Collapsed">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox x:Name="chkShowLockedDoors" Content="Show Locked" Tag="ShowLockedDoors"
+                                            <CheckBox x:Name="chkShowLockedDoors" Content="显示锁定" Tag="ShowLockedDoors"
                                                       Style="{StaticResource DynamicCheckBoxStyle}" Grid.Column="0" Margin="0,0,5,8"/>
-                                            <CheckBox x:Name="chkShowUnlockedDoors" Content="Show Unlocked" Tag="ShowUnlockedDoors"
+                                            <CheckBox x:Name="chkShowUnlockedDoors" Content="显示未锁定" Tag="ShowUnlockedDoors"
                                                       Style="{StaticResource DynamicCheckBoxStyle}" Grid.Column="1" Margin="0,0,5,8"/>
                                         </Grid>
 
-                                        <!-- Exfil Settings -->
+                                        <!-- 撤离点设置 -->
                                         <Grid x:Name="exfilSettings" Visibility="Collapsed">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox x:Name="chkHideInactive" Content="Hide Inactive" Tag="HideInactiveExfils"
+                                            <CheckBox x:Name="chkHideInactive" Content="隐藏未激活" Tag="HideInactiveExfils"
                                                       Style="{StaticResource DynamicCheckBoxStyle}" Grid.Column="0" Margin="0,0,5,8"/>
                                         </Grid>
 
-                                        <!-- Tripwire Settings -->
+                                        <!-- 绊线设置 -->
                                         <Grid x:Name="tripwireSettings" Visibility="Collapsed">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox x:Name="chkShowTripwireLine" Content="Show Tripwire Line" Tag="ShowTripwireLine"
+                                            <CheckBox x:Name="chkShowTripwireLine" Content="显示绊线" Tag="ShowTripwireLine"
                                                       Style="{StaticResource DynamicCheckBoxStyle}" Grid.Column="0" Margin="0,0,5,8"/>
                                         </Grid>
                                     </hc:SimpleStackPanel>
 
-                                    <!-- Render Distance -->
+                                    <!-- 渲染距离 -->
                                     <Grid Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Render Distance" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="渲染距离" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <controls:TextValueSlider
                                             x:Name="sldrEntityTypeRenderDistance" Tag="EntityTypeRenderDistance"
                                             Minimum="0" Maximum="1500"
-                                            MinContent="Off" MaxContent="Max"
+                                            MinContent="关闭" MaxContent="最大"
                                             SmallChange="1" TickFrequency="1"
                                             IsSnapToTickEnabled="True"
                                             ContentStringFormat="{}{0:0m}" 
                                             Grid.Column="1"/>
                                     </Grid>
 
-                                    <!-- Information Selection -->
+                                    <!-- 信息选择 -->
                                     <hc:CheckComboBox x:Name="ccbEntityInformation" Grid.Column="1" Margin="0,0,0,0"
                                                       Style="{StaticResource CheckComboBoxExtend}"
-                                                      hc:TitleElement.Title="Information"
+                                                      hc:TitleElement.Title="信息"
                                                       hc:TitleElement.TitlePlacement="Top"
-                                                      hc:InfoElement.Placeholder="Name, Distance, Height, Value..."/>
+                                                      hc:InfoElement.Placeholder="名称, 距离, 高度, 价值..."/>
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Monitor Settings Section -->
-                            <Expander x:Name="expMonitorSettings" Header="Monitor Settings" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 显示器设置 -->
+                            <Expander x:Name="expMonitorSettings" Header="显示器设置" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                                    <!-- Monitor Selection -->
+                                    <!-- 显示器选择 -->
                                     <Grid Margin="0,0,0,8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -402,14 +402,14 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Monitor" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="显示器" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
 
                                         <Button x:Name="btnRefreshMonitors" Tag="RefreshMonitors" 
                                                 Grid.Column="1"
                                                 Style="{StaticResource ButtonIcon}"
                                                 Width="40" Height="28"
-                                                ToolTip="Refresh Monitors"
+                                                ToolTip="刷新显示器"
                                                 hc:IconElement.Geometry="{StaticResource RotateRightGeometry}"
                                                 hc:IconElement.Width="18"
                                                 hc:IconElement.Height="18"/>
@@ -418,14 +418,14 @@
                                                      Grid.Column="2"/>
                                     </Grid>
 
-                                    <!-- Fuser Width -->
+                                    <!-- 融合器宽度 -->
                                     <Grid Margin="0,0,0,8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Width" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="宽度" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
 
                                         <hc:TextBox x:Name="txtGameWidth" Grid.Column="1" Tag="GameWidth"
@@ -433,14 +433,14 @@
                                                     hc:InfoElement.Placeholder="1920"/>
                                     </Grid>
 
-                                    <!-- Fuser Height -->
+                                    <!-- 融合器高度 -->
                                     <Grid Margin="0,0,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Height" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="高度" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
 
                                         <hc:TextBox x:Name="txtGameHeight" Grid.Column="1" Tag="GameHeight"
@@ -450,10 +450,10 @@
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Quest Helper Section -->
-                            <Expander x:Name="expQuestHelper" Header="Quest Helper" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 任务助手 -->
+                            <Expander x:Name="expQuestHelper" Header="任务助手" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                                    <CheckBox x:Name="chkQuestHelper" Content="Enabled" Tag="QuestHelper"
+                                    <CheckBox x:Name="chkQuestHelper" Content="启用" Tag="QuestHelper"
                                                   Style="{StaticResource DynamicCheckBoxStyle}" 
                                                   Margin="0,0,0,10"/>
                                     
@@ -486,19 +486,19 @@
                                         </Border>
 
                                         <hc:SimpleStackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-                                            <CheckBox x:Name="chkQuestsSelectAll" Content="Select All" Tag="QuestsSelectAll"
+                                            <CheckBox x:Name="chkQuestsSelectAll" Content="全选" Tag="QuestsSelectAll"
                                                   Style="{StaticResource DynamicCheckBoxStyle}" 
                                                   Grid.Column="1" Margin="0,0,0,8"/>
 
-                                            <CheckBox x:Name="chkKappaFilter" Content="Kappa Filter" Tag="KappaFilter"
+                                            <CheckBox x:Name="chkKappaFilter" Content="卡帕任务过滤" Tag="KappaFilter"
                                                   Style="{StaticResource DynamicCheckBoxStyle}" 
                                                   Grid.Column="1" Margin="0,0,0,8"/>
 
-                                            <CheckBox x:Name="chkOptionalTaskFilter" Content="Optional Tasks" Tag="OptionalTaskFilter"
+                                            <CheckBox x:Name="chkOptionalTaskFilter" Content="可选任务" Tag="OptionalTaskFilter"
                                                   Style="{StaticResource DynamicCheckBoxStyle}" 
                                                   Grid.Column="1" Margin="0,0,0,8"/>
 
-                                            <CheckBox x:Name="chkKillZones" Content="Kill Zones" Tag="KillZones"
+                                            <CheckBox x:Name="chkKillZones" Content="击杀区域" Tag="KillZones"
                                                   Style="{StaticResource DynamicCheckBoxStyle}" 
                                                   Grid.Column="1"/>
                                         </hc:SimpleStackPanel>
@@ -506,10 +506,10 @@
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Web Radar Section -->
-                            <Expander x:Name="expWebRadar" Header="Web Radar Server" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 网络雷达服务器 -->
+                            <Expander x:Name="expWebRadar" Header="网络雷达服务器" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                                    <!-- Start Button, UPnP checkbox & Link URL Label-->
+                                    <!-- 启动按钮, UPnP 复选框 & 链接标签 -->
                                     <Grid Margin="0,0,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -517,7 +517,7 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Button x:Name="btnWebRadarStart" Content="Start" Width="80" Height="28"
+                                        <Button x:Name="btnWebRadarStart" Content="启动" Width="80" Height="28"
                                                 Style="{StaticResource ButtonPrimary}"/>
 
                                         <CheckBox x:Name="chkWebRadarUPnP" Content="UPnP"  Tag="UPnP"
@@ -529,7 +529,7 @@
                                                    Cursor="Hand" TextDecorations="Underline"/>
                                     </Grid>
 
-                                    <!-- Bind IP & Port -->
+                                    <!-- 绑定 IP & 端口 -->
                                     <Grid Margin="0,8,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -543,11 +543,11 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <!-- Port Label -->
-                                        <TextBlock Text="Port" Style="{StaticResource LabelText}" 
+                                        <!-- 端口标签 -->
+                                        <TextBlock Text="端口" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" Margin="15,0,5,0"/>
 
-                                        <!-- Port TextBox -->
+                                        <!-- 端口文本框 -->
                                         <hc:TextBox x:Name="txtWebRadarPort" Width="80" Tag="WebRadarPort"
                                                     Grid.Column="4" Grid.Row="0"
                                                     hc:InfoElement.Placeholder="8080"/>
@@ -555,11 +555,11 @@
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Player API Service Section -->
-                            <Expander x:Name="expPlayerAPIService" Header="Player API Service" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 玩家 API 服务 -->
+                            <Expander x:Name="expPlayerAPIService" Header="玩家 API 服务" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
 
-                                    <!-- API Provider Selection -->
+                                    <!-- API 提供商选择 -->
                                     <Grid Margin="0,0,0,10" HorizontalAlignment="Center">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -575,7 +575,7 @@
                                                      Grid.Column="1" IsChecked="True"/>
                                     </Grid>
 
-                                    <!-- API Management Controls (Only visible for eft-api.tech) -->
+                                    <!-- API 管理控件 (仅对 eft-api.tech 可见) -->
                                     <StackPanel Margin="0,0,0,8">
                                         <StackPanel.Style>
                                             <Style TargetType="StackPanel">
@@ -588,18 +588,18 @@
                                             </Style>
                                         </StackPanel.Style>
 
-                                        <!-- Action Buttons -->
+                                        <!-- 操作按钮 -->
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6">
-                                            <Button x:Name="btnCreateApiFile" Content="Create API File?" 
+                                            <Button x:Name="btnCreateApiFile" Content="创建 API 文件?" 
                                                     Margin="0,0,5,0"/>
-                                            <Button x:Name="btnOpenApiFolder" Content="Open Folder" 
+                                            <Button x:Name="btnOpenApiFolder" Content="打开文件夹" 
                                                     Margin="5,0,5,0"/>
-                                            <Button x:Name="btnClearApiFile" Content="Clear" 
+                                            <Button x:Name="btnClearApiFile" Content="清除" 
                                                     Margin="5,0,0,0"/>
                                         </StackPanel>
 
-                                        <!-- Status Information -->
-                                        <TextBlock x:Name="txtApiStatus" Text="No API key saved." 
+                                        <!-- 状态信息 -->
+                                        <TextBlock x:Name="txtApiStatus" Text="未保存 API 密钥。" 
                                                    Style="{StaticResource LabelText}" 
                                                    Margin="0,5,0,0" 
                                                    HorizontalAlignment="Center"
@@ -616,11 +616,11 @@
                 </hc:TabItem>
 
                 <!-- Colors Tab -->
-                <hc:TabItem Header="Colors">
+                <hc:TabItem Header="颜色">
                     <ScrollViewer Style="{StaticResource PanelScrollViewer}">
                         <hc:SimpleStackPanel>
                             <!-- Players Colors Section -->
-                            <Expander x:Name="expPlayerColors" Header="Player Colors" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <Expander x:Name="expPlayerColors" Header="玩家颜色" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -641,7 +641,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- LocalPlayer & Friendly -->
-                                        <TextBlock Text="LocalPlayer" Grid.Row="0" Grid.Column="0" 
+                                        <TextBlock Text="本地玩家" Grid.Row="0" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnLocalPlayerColor" Grid.Row="0" Grid.Column="1" Tag="LocalPlayer"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -650,7 +650,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Friendly" Grid.Row="0" Grid.Column="3" 
+                                        <TextBlock Text="队友" Grid.Row="0" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnFriendlyColor" Grid.Row="0" Grid.Column="4" Tag="Friendly"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -679,7 +679,7 @@
                                         </Button>
 
                                         <!-- Player Scav & Streamer -->
-                                        <TextBlock Text="Player Scav" Grid.Row="2" Grid.Column="0" 
+                                        <TextBlock Text="玩家 Scav" Grid.Row="2" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnPlayerScavColor" Grid.Row="2" Grid.Column="1" Tag="PlayerScav"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -688,7 +688,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Focused" Grid.Row="2" Grid.Column="3" 
+                                        <TextBlock Text="自瞄目标" Grid.Row="2" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnFocusedColor" Grid.Row="2" Grid.Column="4" Tag="Focused"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -698,7 +698,7 @@
                                         </Button>
 
                                         <!-- Aimbot Target & Special Player -->
-                                        <TextBlock Text="Streamer" Grid.Row="3" Grid.Column="0" 
+                                        <TextBlock Text="主播" Grid.Row="3" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnStreamerColor" Grid.Row="3" Grid.Column="1" Tag="Streamer"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -707,7 +707,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Special Player" Grid.Row="3" Grid.Column="3" 
+                                        <TextBlock Text="特殊玩家" Grid.Row="3" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnSpecialColor" Grid.Row="3" Grid.Column="4" Tag="Special"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -717,7 +717,7 @@
                                         </Button>
 
                                         <!-- Raider & Boss -->
-                                        <TextBlock Text="Raider" Grid.Row="4" Grid.Column="0" 
+                                        <TextBlock Text="突袭者" Grid.Row="4" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnRaiderColor" Grid.Row="4" Grid.Column="1" Tag="Raider"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -745,7 +745,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Aimbot Target" Grid.Row="5" Grid.Column="3" 
+                                        <TextBlock Text="自瞄锁定" Grid.Row="5" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnAimbotTargetColor" Grid.Row="5" Grid.Column="4" Tag="AimbotTarget"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -754,7 +754,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Visible Color" Grid.Row="6" Grid.Column="0" 
+                                        <TextBlock Text="可见颜色" Grid.Row="6" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnVisibleColor" Grid.Row="6" Grid.Column="1" Tag="Visible"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -767,7 +767,7 @@
                             </Expander>
 
                             <!-- Loot Colors Section -->
-                            <Expander x:Name="expLootColors" Header="Loot Colors" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <Expander x:Name="expLootColors" Header="战利品颜色" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -787,7 +787,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Regular Loot & Valuable Loot -->
-                                        <TextBlock Text="Regular Loot" Grid.Row="0" Grid.Column="0" 
+                                        <TextBlock Text="普通战利品" Grid.Row="0" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnRegularLootColor" Grid.Row="0" Grid.Column="1" Tag="RegularLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -796,7 +796,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Valuable Loot" Grid.Row="0" Grid.Column="3" 
+                                        <TextBlock Text="贵重战利品" Grid.Row="0" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnValuableLootColor" Grid.Row="0" Grid.Column="4" Tag="ValuableLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -806,7 +806,7 @@
                                         </Button>
 
                                         <!-- Wishlist Loot & Containers -->
-                                        <TextBlock Text="Wishlist Loot" Grid.Row="1" Grid.Column="0" 
+                                        <TextBlock Text="心愿单战利品" Grid.Row="1" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnWishlistLootColor" Grid.Row="1" Grid.Column="1" Tag="WishlistLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -815,7 +815,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Containers" Grid.Row="1" Grid.Column="3" 
+                                        <TextBlock Text="容器" Grid.Row="1" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnContainerLootColor" Grid.Row="1" Grid.Column="4" Tag="ContainerLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -825,7 +825,7 @@
                                         </Button>
 
                                         <!-- Meds Filter & Food Filter -->
-                                        <TextBlock Text="Meds Filter" Grid.Row="2" Grid.Column="0" 
+                                        <TextBlock Text="药品过滤" Grid.Row="2" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnMedsFilterLootColor" Grid.Row="2" Grid.Column="1" Tag="MedsFilterLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -834,7 +834,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Food Filter" Grid.Row="2" Grid.Column="3" 
+                                        <TextBlock Text="食物过滤" Grid.Row="2" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnFoodFilterLootColor" Grid.Row="2" Grid.Column="4" Tag="FoodFilterLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -844,7 +844,7 @@
                                         </Button>
 
                                         <!-- Backpacks Filter & Quest Loot -->
-                                        <TextBlock Text="Backpacks Filter" Grid.Row="3" Grid.Column="0" 
+                                        <TextBlock Text="背包过滤" Grid.Row="3" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnBackpackFilterLootColor" Grid.Row="3" Grid.Column="1" Tag="BackpackFilterLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -853,7 +853,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Quest Loot" Grid.Row="3" Grid.Column="3" 
+                                        <TextBlock Text="任务战利品" Grid.Row="3" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnQuestLootColor" Grid.Row="3" Grid.Column="4" Tag="QuestLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -863,7 +863,7 @@
                                         </Button>
 
                                         <!-- Weapons Filter & Quest Tasks -->
-                                        <TextBlock Text="Weapons Filter" Grid.Row="4" Grid.Column="0" 
+                                        <TextBlock Text="武器过滤" Grid.Row="4" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnWeaponsFilterLootColor" Grid.Row="4" Grid.Column="1" Tag="WeaponsFilterLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -872,7 +872,7 @@
                                             </Button.Background>
                                         </Button>
                                         
-                                        <TextBlock Text="Quest Items/Zones" Grid.Row="4" Grid.Column="3" 
+                                        <TextBlock Text="任务物品/区域" Grid.Row="4" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnQuestItemsAndZonesColor" Grid.Row="4" Grid.Column="4" Tag="StaticQuestItemsAndZones"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -882,7 +882,7 @@
                                         </Button>
                                         
                                         <!-- Airdrops & n/a -->
-                                        <TextBlock Text="Airdrops" Grid.Row="5" Grid.Column="0" 
+                                        <TextBlock Text="空投" Grid.Row="5" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnAirdropsColor" Grid.Row="5" Grid.Column="1" Tag="Airdrops"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -895,7 +895,7 @@
                             </Expander>
 
                             <!-- Other Colors Section -->
-                            <Expander x:Name="expOtherColors" Header="Other Colors" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <Expander x:Name="expOtherColors" Header="其他颜色" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -916,7 +916,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Death Marker & Corpse -->
-                                        <TextBlock Text="Death Marker" Grid.Row="0" Grid.Column="0" 
+                                        <TextBlock Text="死亡标记" Grid.Row="0" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnDeathMarkerColor" Grid.Row="0" Grid.Column="1" Tag="DeathMarker"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -925,7 +925,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Corpse" Grid.Row="0" Grid.Column="3" 
+                                        <TextBlock Text="尸体" Grid.Row="0" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnCorpseColor" Grid.Row="0" Grid.Column="4" Tag="Corpse"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -935,7 +935,7 @@
                                         </Button>
 
                                         <!-- Explosives & Switches -->
-                                        <TextBlock Text="Explosives" Grid.Row="1" Grid.Column="0" 
+                                        <TextBlock Text="爆炸物" Grid.Row="1" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnExplosivesColor" Grid.Row="1" Grid.Column="1" Tag="Explosives"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -944,7 +944,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Switches" Grid.Row="1" Grid.Column="3" 
+                                        <TextBlock Text="开关" Grid.Row="1" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnSwitchesColor" Grid.Row="1" Grid.Column="4" Tag="Switches"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -954,7 +954,7 @@
                                         </Button>
 
                                         <!-- Quest Kill Zones & Exfil Open -->
-                                        <TextBlock Text="Quest Kill Zones" Grid.Row="2" Grid.Column="0" 
+                                        <TextBlock Text="任务击杀区域" Grid.Row="2" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnQuestKillZoneColor" Grid.Row="2" Grid.Column="1" Tag="QuestKillZone"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -963,7 +963,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Exfil Open" Grid.Row="2" Grid.Column="3" 
+                                        <TextBlock Text="撤离点开放" Grid.Row="2" Grid.Column="3" 
                                               Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnExfilOpenColor" Grid.Row="2" Grid.Column="4" Tag="ExfilOpen"
                                            Style="{StaticResource ColorPickerButton}">
@@ -973,7 +973,7 @@
                                         </Button>
 
                                         <!-- Exfil Pending & Exfil Closed -->
-                                        <TextBlock Text="Exfil Pending" Grid.Row="3" Grid.Column="0" 
+                                        <TextBlock Text="撤离点待命" Grid.Row="3" Grid.Column="0" 
                                               Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnExfilPendingColor" Grid.Row="3" Grid.Column="1" Tag="ExfilPending"
                                            Style="{StaticResource ColorPickerButton}">
@@ -982,7 +982,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Exfil Closed" Grid.Row="3" Grid.Column="3" 
+                                        <TextBlock Text="撤离点关闭" Grid.Row="3" Grid.Column="3" 
                                               Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnExfilClosedColor" Grid.Row="3" Grid.Column="4" Tag="ExfilClosed"
                                            Style="{StaticResource ColorPickerButton}">
@@ -992,7 +992,7 @@
                                         </Button>
 
                                         <!-- Exfil Inactive & Transit -->
-                                        <TextBlock Text="Exfil Inactive" Grid.Row="4" Grid.Column="0" 
+                                        <TextBlock Text="撤离点不可用" Grid.Row="4" Grid.Column="0" 
                                               Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnExfilInactiveColor" Grid.Row="4" Grid.Column="1" Tag="ExfilInactive"
                                            Style="{StaticResource ColorPickerButton}">
@@ -1001,7 +1001,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Transit" Grid.Row="4" Grid.Column="3" 
+                                        <TextBlock Text="中转点" Grid.Row="4" Grid.Column="3" 
                                               Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnExfilTransitColor" Grid.Row="4" Grid.Column="4" Tag="ExfilTransit"
                                            Style="{StaticResource ColorPickerButton}">
@@ -1011,7 +1011,7 @@
                                         </Button>
 
                                         <!-- Door Open & Door Closed -->
-                                        <TextBlock Text="Door Open" Grid.Row="5" Grid.Column="0" 
+                                        <TextBlock Text="门开启" Grid.Row="5" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnDoorOpenColor" Grid.Row="5" Grid.Column="1" Tag="DoorOpen"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1020,7 +1020,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Door Locked" Grid.Row="5" Grid.Column="3" 
+                                        <TextBlock Text="门锁定" Grid.Row="5" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnDoorLockedColor" Grid.Row="5" Grid.Column="4" Tag="DoorLocked"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1030,7 +1030,7 @@
                                         </Button>
 
                                         <!-- Group Line & none -->
-                                        <TextBlock Text="Door Shut" Grid.Row="6" Grid.Column="0" 
+                                        <TextBlock Text="门关闭" Grid.Row="6" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnDoorShutColor" Grid.Row="6" Grid.Column="1" Tag="DoorShut"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1039,7 +1039,7 @@
                                             </Button.Background>
                                         </Button>
                                         
-                                        <TextBlock Text="Group Lines" Grid.Row="6" Grid.Column="3" 
+                                        <TextBlock Text="队伍连线" Grid.Row="6" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnGroupLinesColor" Grid.Row="6" Grid.Column="4" Tag="GroupLines"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1051,8 +1051,8 @@
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- HUD Colors Section -->
-                            <Expander x:Name="expHUDColors" Header="Fuser HUD Colors" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 融合器 HUD 颜色 -->
+                            <Expander x:Name="expHUDColors" Header="融合器 HUD 颜色" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -1082,7 +1082,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Raid Stats" Grid.Row="0" Grid.Column="3" 
+                                        <TextBlock Text="战局统计" Grid.Row="0" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnRaidStatsColor" Grid.Row="0" Grid.Column="4" Tag="RaidStats"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1092,7 +1092,7 @@
                                         </Button>
 
                                         <!-- Status Text & Magazine Info -->
-                                        <TextBlock Text="Status Text" Grid.Row="1" Grid.Column="0" 
+                                        <TextBlock Text="状态文本" Grid.Row="1" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnStatusTextColor" Grid.Row="1" Grid.Column="1" Tag="StatusText"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1101,7 +1101,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Magazine Info" Grid.Row="1" Grid.Column="3" 
+                                        <TextBlock Text="弹匣信息" Grid.Row="1" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnMagazineInfoColor" Grid.Row="1" Grid.Column="4" Tag="MagazineInfo"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1111,7 +1111,7 @@
                                         </Button>
 
                                         <!-- Energy & Hydration bar -->
-                                        <TextBlock Text="Energy Bar" Grid.Row="2" Grid.Column="0" 
+                                        <TextBlock Text="能量条" Grid.Row="2" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnEnergyBarColor" Grid.Row="2" Grid.Column="1" Tag="EnergyBar"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1120,7 +1120,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Hydration Bar" Grid.Row="2" Grid.Column="3" 
+                                        <TextBlock Text="水分条" Grid.Row="2" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnHydrationBarColor" Grid.Row="2" Grid.Column="4" Tag="HydrationBar"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1130,7 +1130,7 @@
                                         </Button>
 
                                         <!-- Crosshair & Fireport Aim -->
-                                        <TextBlock Text="Crosshair" Grid.Row="3" Grid.Column="0" 
+                                        <TextBlock Text="准星" Grid.Row="3" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnCrosshairColor" Grid.Row="3" Grid.Column="1" Tag="Crosshair"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1139,7 +1139,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Fireport Aim" Grid.Row="3" Grid.Column="3" 
+                                        <TextBlock Text="枪口瞄准" Grid.Row="3" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnFireportAimColor" Grid.Row="3" Grid.Column="4" Tag="FireportAim"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1149,7 +1149,7 @@
                                         </Button>
 
                                         <!-- Aimbot FOV & Aimbot Lock -->
-                                        <TextBlock Text="Aimbot FOV" Grid.Row="4" Grid.Column="0" 
+                                        <TextBlock Text="自瞄视野" Grid.Row="4" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnAimbotFOVColor" Grid.Row="4" Grid.Column="1" Tag="AimbotFOV"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1158,7 +1158,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Aimbot Lock" Grid.Row="4" Grid.Column="3" 
+                                        <TextBlock Text="自瞄锁定" Grid.Row="4" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnAimbotLockColor" Grid.Row="4" Grid.Column="4" Tag="AimbotLock"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1168,7 +1168,7 @@
                                         </Button>
 
                                         <!-- Closest Player & Top Loot -->
-                                        <TextBlock Text="Closest Player" Grid.Row="5" Grid.Column="0" 
+                                        <TextBlock Text="最近玩家" Grid.Row="5" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnClosestPlayerColor" Grid.Row="5" Grid.Column="1" Tag="ClosestPlayer"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1177,7 +1177,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Top Loot" Grid.Row="5" Grid.Column="3" 
+                                        <TextBlock Text="顶级战利品" Grid.Row="5" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnTopLootColor" Grid.Row="5" Grid.Column="4" Tag="TopLoot"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1187,7 +1187,7 @@
                                         </Button>
 
                                         <!-- Mini Radar Theme & Override Player Text -->
-                                        <TextBlock Text="Radar Theme" Grid.Row="6" Grid.Column="0"
+                                        <TextBlock Text="雷达主题" Grid.Row="6" Grid.Column="0"
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnMiniRadarThemeColor" Grid.Row="6" Grid.Column="1" Tag="MiniRadarTheme"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1196,7 +1196,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Override Player Text" Grid.Row="6" Grid.Column="3"
+                                        <TextBlock Text="覆盖玩家文本" Grid.Row="6" Grid.Column="3"
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnOverridePlayerTextColor" Grid.Row="6" Grid.Column="4" Tag="OverridePlayerText"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1208,8 +1208,8 @@
                                 </hc:SimpleStackPanel>
                             </Expander>
 
-                            <!-- Interface Colors Section -->
-                            <Expander x:Name="expInterfaceColors" Header="Interface Colors" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <!-- 界面颜色 -->
+                            <Expander x:Name="expInterfaceColors" Header="界面颜色" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -1227,7 +1227,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Primary accent -->
-                                        <TextBlock Text="Primary Accent" Grid.Row="0" Grid.Column="0" 
+                                        <TextBlock Text="主色调" Grid.Row="0" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnAccentColor" Grid.Row="0" Grid.Column="1" Tag="Interface.Accent"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1237,7 +1237,7 @@
                                         </Button>
 
                                         <!-- Region colors -->
-                                        <TextBlock Text="Region" Grid.Row="1" Grid.Column="0" 
+                                        <TextBlock Text="区域" Grid.Row="1" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnRegionColor" Grid.Row="1" Grid.Column="1" Tag="Interface.Region"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1246,7 +1246,7 @@
                                             </Button.Background>
                                         </Button>
 
-                                        <TextBlock Text="Secondary Region" Grid.Row="1" Grid.Column="3" 
+                                        <TextBlock Text="次要区域" Grid.Row="1" Grid.Column="3" 
                                                   Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnSecondaryRegionColor" Grid.Row="1" Grid.Column="4" Tag="Interface.SecondaryRegion"
                                                Style="{StaticResource ColorPickerButton}">
@@ -1256,7 +1256,7 @@
                                         </Button>
 
                                         <!-- Border color -->
-                                        <TextBlock Text="Border" Grid.Row="2" Grid.Column="0" 
+                                        <TextBlock Text="边框" Grid.Row="2" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnBorderColor" Grid.Row="2" Grid.Column="1" Tag="Interface.Border"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1266,7 +1266,7 @@
                                         </Button>
 
                                         <!-- Radar Background color -->
-                                        <TextBlock Text="Radar Background" Grid.Row="3" Grid.Column="0" 
+                                        <TextBlock Text="雷达背景" Grid.Row="3" Grid.Column="0" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnRadarBackgroundColor" Grid.Row="3" Grid.Column="1" Tag="Interface.RadarBackground"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1276,7 +1276,7 @@
                                         </Button>
 
                                         <!-- Fuser Background color -->
-                                        <TextBlock Text="Fuser Background" Grid.Row="3" Grid.Column="3" 
+                                        <TextBlock Text="融合器背景" Grid.Row="3" Grid.Column="3" 
                                                    Style="{StaticResource ColorPickerLabel}"/>
                                         <Button x:Name="btnFuserBackgroundColor" Grid.Row="3" Grid.Column="4" Tag="Interface.FuserBackground"
                                                 Style="{StaticResource ColorPickerButton}">
@@ -1292,13 +1292,13 @@
                 </hc:TabItem>
 
                 <!-- Hotkeys Tab -->
-                <hc:TabItem Header="Hotkeys">
+                <hc:TabItem Header="快捷键">
                     <ScrollViewer Style="{StaticResource PanelScrollViewer}">
                         <hc:SimpleStackPanel>
-                            <Expander x:Name="expApplicationHotkeys" Header="Application Hotkeys" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                            <Expander x:Name="expApplicationHotkeys" Header="应用快捷键" Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <!-- Hotkey Configuration -->
-                                    <GroupBox Header="Hotkey Configuration" Style="{StaticResource TransparentGroupBoxStyle}"
+                                    <GroupBox Header="快捷键配置" Style="{StaticResource TransparentGroupBoxStyle}"
                                               Padding="8,5,8,8" Margin="0,0,0,15">
                                         <Grid Margin="0,8,0,0">
                                             <Grid.ColumnDefinitions>
@@ -1314,7 +1314,7 @@
                                             </Grid.RowDefinitions>
 
                                             <!-- Action Selection -->
-                                            <TextBlock Text="Action:" Grid.Row="0" Grid.Column="0" 
+                                            <TextBlock Text="操作:" Grid.Row="0" Grid.Column="0" 
                                                        Style="{StaticResource LabelText}"
                                                        VerticalAlignment="Center" 
                                                        Margin="0,0,8,0"/>
@@ -1322,16 +1322,16 @@
                                             <ComboBox x:Name="cboAction" Grid.Row="0" Grid.Column="1"
                                                       DisplayMemberPath="Name"
                                                       SelectedValuePath="Key"
-                                                      hc:InfoElement.Placeholder="Select Action"
+                                                      hc:InfoElement.Placeholder="选择操作"
                                                       Margin="0,0,15,0"/>
 
                                             <!-- Key Selection -->
                                             <controls:KeyInputBox x:Name="keyInputBox" 
                                                 Grid.Row="0" Grid.Column="3"
-                                                PlaceholderText="Select Key"/>
+                                                PlaceholderText="选择按键"/>
 
                                             <!-- Hotkey Type -->
-                                            <TextBlock Text="Type:" Grid.Row="1" Grid.Column="0" 
+                                            <TextBlock Text="类型:" Grid.Row="1" Grid.Column="0" 
                                                        Style="{StaticResource LabelText}"
                                                        VerticalAlignment="Top" 
                                                        Margin="0,9,8,0" Height="18"/>
@@ -1341,10 +1341,10 @@
                                                                  VerticalAlignment="Center"
                                                                  Margin="0,10,0,15">
                                                 <RadioButton x:Name="rdbOnKey" 
-                                                             Content="On Key" 
+                                                             Content="按住" 
                                                              Margin="0,0,10,0" 
                                                              IsChecked="True"/>
-                                                <RadioButton x:Name="rdbToggle" Content="Toggle"/>
+                                                <RadioButton x:Name="rdbToggle" Content="切换"/>
                                             </hc:SimpleStackPanel>
 
                                             <!-- Action Buttons -->
@@ -1352,10 +1352,10 @@
                                                                  Orientation="Horizontal" 
                                                                  HorizontalAlignment="Right" 
                                                                  Margin="0,0,1,0">
-                                                <Button x:Name="btnRemoveHotkey" Content="Remove Hotkey"
+                                                <Button x:Name="btnRemoveHotkey" Content="移除快捷键"
                                                         Margin="0,0,10,0"
                                                         Style="{StaticResource ButtonPrimary}"/>
-                                                <Button x:Name="btnAddHotkey" Content="Add Hotkey"
+                                                <Button x:Name="btnAddHotkey" Content="添加快捷键"
                                                         Style="{StaticResource ButtonPrimary}" Width="94"/>
                                             </hc:SimpleStackPanel>
                                         </Grid>
@@ -1377,11 +1377,11 @@
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <TextBlock Text="Action" Grid.Column="0" Style="{StaticResource LabelText}"
+                                                <TextBlock Text="操作" Grid.Column="0" Style="{StaticResource LabelText}"
                                                            FontWeight="Bold" Padding="10,5"/>
-                                                <TextBlock Text="Key" Grid.Column="1" Style="{StaticResource LabelText}"
+                                                <TextBlock Text="按键" Grid.Column="1" Style="{StaticResource LabelText}"
                                                            FontWeight="Bold" Padding="10,5"/>
-                                                <TextBlock Text="Type" Grid.Column="2" Style="{StaticResource LabelText}"
+                                                <TextBlock Text="类型" Grid.Column="2" Style="{StaticResource LabelText}"
                                                            FontWeight="Bold" Padding="10,5"/>
                                             </Grid>
 
@@ -1422,10 +1422,10 @@
                 </hc:TabItem>
                 
                 <!-- Config Tab -->
-                <hc:TabItem Header="Config">
+                <hc:TabItem Header="配置">
                     <ScrollViewer Style="{StaticResource PanelScrollViewer}">
                         <hc:SimpleStackPanel>
-                            <Expander x:Name="expConfigManagement" Header="Config Management" 
+                            <Expander x:Name="expConfigManagement" Header="配置管理" 
                                       Style="{StaticResource PanelExpander}" IsExpanded="True">
                                 <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
                                     <!-- Current Config Display -->
@@ -1434,7 +1434,7 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Current Config:" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="当前配置:" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <TextBlock x:Name="txtCurrentConfig" Text="config-eft-v3.json" 
                                                    Style="{StaticResource LabelText}" Grid.Column="1"
@@ -1448,15 +1448,15 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition Width="Auto" MinWidth="37"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Available Configs:" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="可用配置:" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Top" Grid.Column="0" Height="17" Margin="0,4,0,0"/>
                                         <ComboBox x:Name="cboConfigs" Grid.Column="1" Margin="5,0,5,0"
-                                                  hc:InfoElement.Placeholder="Select config"/>
+                                                  hc:InfoElement.Placeholder="选择配置"/>
                                         <Button x:Name="btnRefreshConfigs" Tag="RefreshConfigs" 
                                                 Grid.Column="2"
                                                 Style="{StaticResource ButtonIcon}"
                                                 Width="37" Height="28"
-                                                ToolTip="Refresh Configs"
+                                                ToolTip="刷新配置"
                                                 hc:IconElement.Geometry="{StaticResource RotateRightGeometry}"
                                                 hc:IconElement.Width="16"
                                                 hc:IconElement.Height="16"/>
@@ -1468,10 +1468,10 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="New Config Name:" Style="{StaticResource LabelText}" 
+                                        <TextBlock Text="新配置名称:" Style="{StaticResource LabelText}" 
                                                    VerticalAlignment="Center" Grid.Column="0"/>
                                         <hc:TextBox x:Name="txtNewConfigName" Grid.Column="1" Margin="5,0,0,0"
-                                                    hc:InfoElement.Placeholder="Enter config name"/>
+                                                    hc:InfoElement.Placeholder="输入配置名称"/>
                                     </Grid>
 
                                     <!-- Action Buttons - First Row -->
@@ -1480,9 +1480,9 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnSaveConfig" Content="Create New" Grid.Column="0" 
+                                        <Button x:Name="btnSaveConfig" Content="创建新的" Grid.Column="0" 
                                                 Margin="5,0,5,0" Style="{StaticResource ButtonPrimary}"/>
-                                        <Button x:Name="btnDeleteConfig" Content="Delete" Grid.Column="1" 
+                                        <Button x:Name="btnDeleteConfig" Content="删除" Grid.Column="1" 
                                                 Margin="5,0,0,0" Style="{StaticResource ButtonDanger}"/>
                                     </Grid>
 
@@ -1498,7 +1498,7 @@
                                                 <Path Width="14" Height="14" Margin="0,0,5,0" Stretch="Uniform"
                                                       Data="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"
                                                       Fill="{DynamicResource TextIconBrush}"/>
-                                                <TextBlock Text="Import from Clipboard"/>
+                                                <TextBlock Text="从剪贴板导入"/>
                                             </StackPanel>
                                         </Button>
                                         <Button x:Name="btnExportClipboard" Grid.Column="1" 
@@ -1507,13 +1507,13 @@
                                                 <Path Width="14" Height="14" Margin="0,0,5,0" Stretch="Uniform"
                                                       Data="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"
                                                       Fill="{DynamicResource TextIconBrush}"/>
-                                                <TextBlock Text="Export to Clipboard"/>
+                                                <TextBlock Text="导出到剪贴板"/>
                                             </StackPanel>
                                         </Button>
                                     </Grid>
 
                                     <!-- Reset Button -->
-                                    <Button x:Name="btnResetConfig" Content="Reset to Default" Margin="0,0,0,0"
+                                    <Button x:Name="btnResetConfig" Content="重置为默认" Margin="0,0,0,0"
                                             HorizontalAlignment="Stretch" Style="{StaticResource ButtonWarning}"/>
                                 </hc:SimpleStackPanel>
                             </Expander>

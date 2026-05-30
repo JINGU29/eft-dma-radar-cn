@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Tarkov.EFTPlayer;
+using eft_dma_radar.Tarkov.EFTPlayer;
 using eft_dma_radar.Tarkov.Features;
 using eft_dma_radar.Tarkov.Features.MemoryWrites;
 using eft_dma_radar.Tarkov.Features.MemoryWrites.Patches;
@@ -1156,7 +1156,7 @@ namespace eft_dma_radar.UI.ESP
                 {
                     var textY = scrPos.Y + 16f * scale;
                     var textPt = new SKPoint(scrPos.X, textY);
-                    var label = MineSettings.ShowName ? "*DANGER* Mine" : null;
+                    var label = MineSettings.ShowName ? "*危险* 地雷" : null;
 
                     textPt.DrawESPText(
                         canvas,
@@ -1179,7 +1179,7 @@ namespace eft_dma_radar.UI.ESP
         {
             var textPt = new SKPoint(CameraManagerBase.Viewport.Left + 4.5f * ESPConfig.FontScale,
                 CameraManagerBase.Viewport.Top + 14f * ESPConfig.FontScale);
-            canvas.DrawText("ESP Hidden", textPt, SKTextAlign.Left, SKPaints.ESPFontMedium12, SKPaints.TextBasicESPLeftAligned);
+            canvas.DrawText("ESP 已隐藏", textPt, SKTextAlign.Left, SKPaints.ESPFontMedium12, SKPaints.TextBasicESPLeftAligned);
         }
 
         /// <summary>
@@ -2078,7 +2078,7 @@ namespace eft_dma_radar.UI.ESP
                 IsAntialias = true
             };
 
-            string mode = _radarFreeMode ? "FREE" : "LOCKED";
+            string mode = _radarFreeMode ? "自由" : "锁定";
             canvas.DrawText(
                 $"RADAR [{mode}] Zoom: {_radarZoom:F1}x",
                 _radarRect.Left + 5,
@@ -2114,7 +2114,7 @@ namespace eft_dma_radar.UI.ESP
             _uiElements[UIElement.StatusBars] = new UIElementInfo
             {
                 Offset = _statusBarOffset,
-                GetCurrentText = () => "StatusBars",
+                GetCurrentText = () => "状态条",
                 CalculateBounds = CalculateStatusBarsBounds,
                 CalculateBaseBounds = CalculateStatusBarsBaseBounds,
                 SetOffset = offset =>
@@ -2129,7 +2129,7 @@ namespace eft_dma_radar.UI.ESP
             _uiElements[UIElement.RaidStats] = new UIElementInfo
             {
                 Offset = _raidStatsOffset,
-                GetCurrentText = () => "RaidStats",
+                GetCurrentText = () => "突袭统计",
                 CalculateBounds = CalculateRaidStatsBounds,
                 CalculateBaseBounds = CalculateRaidStatsBaseBounds,
                 SetOffset = offset =>
@@ -2207,7 +2207,7 @@ namespace eft_dma_radar.UI.ESP
                 GetCurrentText = () =>
                 {
                     var c = KillfeedManager.Entries.Count;
-                    return c == 0 ? "Killfeed" : $"Killfeed:{c}";
+                    return c == 0 ? "击杀信息" : $"击杀信息:{c}";
                 },
                 CalculateBounds = CalculateKillfeedBounds,
                 CalculateBaseBounds = CalculateKillfeedBaseBounds,
@@ -2518,7 +2518,7 @@ namespace eft_dma_radar.UI.ESP
             // ----------------------------------------
             if (entries.Count == 0)
             {
-                const string placeholder = "Killfeed";
+                const string placeholder = "击杀信息";
 
                 float w = SKPaints.ESPFontMedium13.MeasureText(placeholder);
                 float h = SKPaints.ESPFontMedium13.Size;
@@ -2572,7 +2572,7 @@ namespace eft_dma_radar.UI.ESP
                 };
 
                 string killer = string.IsNullOrWhiteSpace(e.Killer)
-                    ? "Probably AI"
+                    ? "可能是 AI"
                     : e.Killer;
 
                 string levelPart = !string.IsNullOrWhiteSpace(e.Level)
@@ -2631,7 +2631,7 @@ namespace eft_dma_radar.UI.ESP
                 150f * scale;
 
             // --- placeholder size ---
-            float w = SKPaints.ESPFontMedium13.MeasureText("Killfeed");
+            float w = SKPaints.ESPFontMedium13.MeasureText("击杀信息");
             float h = SKPaints.ESPFontMedium13.Size;
 
             return new SKRect(
@@ -2939,7 +2939,7 @@ namespace eft_dma_radar.UI.ESP
             string label = null;
 
             if (rageMode)
-                label = aimEnabled ? $"{Aimbot.Config.TargetingMode.GetDescription()}: RAGE MODE" : "RAGE MODE";
+                label = aimEnabled ? $"{Aimbot.Config.TargetingMode.GetDescription()}: 狂暴模式" : "狂暴模式";
             else if (aimEnabled)
             {
                 var mode = Aimbot.Config.TargetingMode.GetDescription();

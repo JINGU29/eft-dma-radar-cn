@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Common.DMA;
+using eft_dma_radar.Common.DMA;
 using eft_dma_radar.Common.DMA.Features;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Common.Unity;
@@ -51,11 +51,11 @@ namespace eft_dma_radar.UI.Pages
         private bool _isLoadingAimbotOptions = false;
         private readonly string[] _availableAimbotOptions = new string[]
         {
-            "Safe Lock",
-            "Disable Re-Lock",
-            "Auto Bone",
-            "Headshot AI",
-            "Random Bone"
+            "安全锁定",
+            "禁用重锁定",
+            "自动骨骼",
+            "AI爆头",
+            "随机骨骼"
         };
         #endregion
 
@@ -444,11 +444,11 @@ namespace eft_dma_radar.UI.Pages
         {
             var optionsToUpdate = new Dictionary<string, bool>
             {
-                ["Safe Lock"] = MemWrites.Config.Aimbot.SilentAim.SafeLock,
-                ["Disable Re-Lock"] = MemWrites.Config.Aimbot.DisableReLock,
-                ["Auto Bone"] = MemWrites.Config.Aimbot.SilentAim.AutoBone,
-                ["Headshot AI"] = MemWrites.Config.Aimbot.HeadshotAI,
-                ["Random Bone"] = MemWrites.Config.Aimbot.RandomBone.Enabled
+                ["安全锁定"] = MemWrites.Config.Aimbot.SilentAim.SafeLock,
+                ["禁用重锁定"] = MemWrites.Config.Aimbot.DisableReLock,
+                ["自动骨骼"] = MemWrites.Config.Aimbot.SilentAim.AutoBone,
+                ["AI爆头"] = MemWrites.Config.Aimbot.HeadshotAI,
+                ["随机骨骼"] = MemWrites.Config.Aimbot.RandomBone.Enabled
             };
 
             foreach (CheckComboBoxItem item in ccbAimbotOptions.Items)
@@ -1127,19 +1127,19 @@ namespace eft_dma_radar.UI.Pages
 
                 switch (option)
                 {
-                    case "Safe Lock":
+                    case "安全锁定":
                         MemWrites.Config.Aimbot.SilentAim.SafeLock = isSelected;
                         break;
-                    case "Disable Re-Lock":
+                    case "禁用重锁定":
                         MemWrites.Config.Aimbot.DisableReLock = isSelected;
                         break;
-                    case "Auto Bone":
+                    case "自动骨骼":
                         MemWrites.Config.Aimbot.SilentAim.AutoBone = isSelected;
                         break;
-                    case "Headshot AI":
+                    case "AI爆头":
                         MemWrites.Config.Aimbot.HeadshotAI = isSelected;
                         break;
-                    case "Random Bone":
+                    case "随机骨骼":
                         MemWrites.Config.Aimbot.RandomBone.Enabled = isSelected;
                         ToggleAimbotRandomBoneControls();
                         break;
@@ -1162,11 +1162,11 @@ namespace eft_dma_radar.UI.Pages
                     MemWriteFeature<AntiAfk>.Instance.Set();
                 });
 
-                NotificationsShared.Success("Anti-AFK is Set!\n\n NOTE: If you leave the Main Menu, you may need to re-set this.");
+                NotificationsShared.Success("反挂机已设置！\n\n注意：如果离开主菜单，可能需要重新设置。");
             }
             catch (Exception ex)
             {
-                NotificationsShared.Error($"ERROR Setting Anti-AFK! Your memory may be paged out, try close and re-open the game and try again.\n\n ${ex}");
+                NotificationsShared.Error($"设置反挂机失败！内存可能已分页，请尝试关闭并重新打开游戏后再试。\n\n ${ex}");
             }
             finally
             {
@@ -1204,15 +1204,15 @@ namespace eft_dma_radar.UI.Pages
                     //MemWriteFeature<HideRaidCode>.Instance.Set();
                 });
 
-                NotificationsShared.Success("HideRaidCode is Set!\n\n NOTE: If you leave the Main Menu, you may need to re-set this.");
+                NotificationsShared.Success("隐藏战局代码已设置！\n\n注意：如果离开主菜单，可能需要重新设置。");
             }
             catch (Exception ex)
             {
-                NotificationsShared.Error($"ERROR Setting HideRaidCode! Your memory may be paged out, try close and re-open the game and try again.\n\n ${ex}");
+                NotificationsShared.Error($"设置隐藏战局代码失败！内存可能已分页，请尝试关闭并重新打开游戏后再试。\n\n ${ex}");
             }
             finally
             {
-                btnTest.Content = "Test HideRaidCode";
+                btnTest.Content = "测试隐藏战局代码";
                 btnTest.IsEnabled = true;
             }
         }
@@ -1274,13 +1274,13 @@ namespace eft_dma_radar.UI.Pages
                     case MemoryWritingDecision.DisableAll:
                         importedConfig.MemWrites.MemWritesEnabled = false;
                         Log.WriteLine("[Config] User chose to disable all Memory Writing features during import");
-                        NotificationsShared.Info("[Config] All Memory Writing features have been disabled. You can enable them later in the Memory Writing panel if needed.");
+                        NotificationsShared.Info("[配置] 所有内存修改功能已被禁用。如需使用，可在稍后于内存修改面板中重新启用。");
                         break;
 
                     case MemoryWritingDecision.EnableBasicOnly:
                         importedConfig.MemWrites.MemWritesEnabled = true;
                         Log.WriteLine("[Config] User chose to enable Memory Writing features during import");
-                        NotificationsShared.Warning("[Config] Memory Writing features are enabled. Please be aware of the associated risks.");
+                        NotificationsShared.Warning("[配置] 内存修改功能已启用。请注意相关风险。");
                         break;
 
                     case MemoryWritingDecision.KeepCurrent:

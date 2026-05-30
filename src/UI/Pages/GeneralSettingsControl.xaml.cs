@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Tarkov;
+using eft_dma_radar.Tarkov;
 using eft_dma_radar.Tarkov.API;
 using eft_dma_radar.Tarkov.EFTPlayer.Plugins;
 using eft_dma_radar.Tarkov.Features;
@@ -105,6 +105,32 @@ namespace eft_dma_radar.UI.Pages
         private static readonly string FontFolder =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fonts");
 
+        private static readonly Dictionary<string, string> InformationDisplayNames = new()
+        {
+            ["ADS"] = "瞄准",
+            ["Ammo Type"] = "弹药类型",
+            ["Distance"] = "距离",
+            ["Group"] = "队伍",
+            ["Health"] = "健康",
+            ["Height"] = "高度",
+            ["Level"] = "等级",
+            ["Name"] = "名称",
+            ["Night Vision"] = "夜视",
+            ["KD"] = "K/D",
+            ["Thermal"] = "热成像",
+            ["UBGL"] = "下挂榴弹发射器",
+            ["Weapon"] = "武器",
+            ["Value"] = "价值",
+            ["Tag"] = "标签"
+        };
+
+        private static readonly Dictionary<string, string> EntityInformationDisplayNames = new()
+        {
+            ["Name"] = "名称",
+            ["Distance"] = "距离",
+            ["Value"] = "价值"
+        };
+
         private readonly string[] _availableInformation =
         [
             "ADS",
@@ -126,20 +152,20 @@ namespace eft_dma_radar.UI.Pages
 
         private readonly string[] _availableWidgets =
         [
-            "Aimview Widget",
-            "Debug Widget",
-            "Player Info Widget",
-            "Loot Info Widget",
-            "Quest Info Widget",
-            "Quest Planner Widget",
-            "HotKey Info Widget"
+            "自瞄视野组件",
+            "调试组件",
+            "玩家信息组件",
+            "战利品信息组件",
+            "任务信息组件",
+            "任务规划组件",
+            "快捷键信息组件"
         ];
 
         private readonly string[] _availableGeneralOptions =
         [
-            "Connect Groups",
-            "Mask Names",
-            "Players on Top"
+            "连接队伍",
+            "隐藏名称",
+            "玩家置顶"
         ];
 
         private readonly string[] _availableEntityInformation =
@@ -249,7 +275,7 @@ namespace eft_dma_radar.UI.Pages
             {
                 if (!Clipboard.ContainsText())
                 {
-                    NotificationsShared.Warning("[Config] Clipboard does not contain text data.");
+                    NotificationsShared.Warning("[配置] 剪贴板不包含文本数据。");
                     return;
                 }
 
@@ -258,20 +284,20 @@ namespace eft_dma_radar.UI.Pages
 
 
                 var warningResult = MessageBox.Show(
-                        "WARNING: Importing a configuration will replace current settings including:\n\n" +
-                        "Ã¯Â¿? General settings & UI preferences\n" +
-                        "Ã¯Â¿? Player/Entity display settings\n" +
-                        "Ã¯Â¿? Color configurations\n" +
-                        "Ã¯Â¿? Hotkey assignments\n" +
-                        "Ã¯Â¿? ESP configurations\n" +
-                        "Ã¯Â¿? Panel and toolbar positions\n" +
-                        "Ã¯Â¿? Memory writing settings\n" +
-                        "Ã¯Â¿? Loot settings\n" +
-                        "Ã¯Â¿? Quest helper settings\n" +
-                        "Ã¯Â¿? Container settings\n\n" +
-                        "NOTE: Cache & Web Radar data will not be preserved.\n\n" +
-                        "This action cannot be undone. Continue?",
-                        "Import Configuration Warning",
+                        "警告：导入配置将替换当前设置，包括：\n\n" +
+                        "• 通用设置和UI偏好\n" +
+                        "• 玩家/实体显示设置\n" +
+                        "• 颜色配置\n" +
+                        "• 快捷键设置\n" +
+                        "• ESP配置\n" +
+                        "• 面板和工具栏位置\n" +
+                        "• 内存修改设置\n" +
+                        "• 战利品设置\n" +
+                        "• 任务助手设置\n" +
+                        "• 容器设置\n\n" +
+                        "注意：缓存和Web雷达数据不会被保留。\n\n" +
+                        "此操作无法撤销。继续？",
+                        "导入配置警告",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning);
 
@@ -313,11 +339,11 @@ namespace eft_dma_radar.UI.Pages
 
                     if (importedConfig == null)
                     {
-                        NotificationsShared.Error("[Config] Invalid configuration data in clipboard.");
+                        NotificationsShared.Error("[配置] 剪贴板中的配置数据无效。");
                         return;
                     }
 
-                    NotificationsShared.Info("[Config] Applying imported configuration...");
+                    NotificationsShared.Info("[配置] 正在应用导入的配置...");
 
                     await Task.Run(async () =>
                     {
@@ -430,12 +456,12 @@ namespace eft_dma_radar.UI.Pages
                         }
                     });
 
-                    NotificationsShared.Success("Configuration imported successfully!");
+                    NotificationsShared.Success("配置导入成功！");
                 }
                 catch (Exception ex)
                 {
                     Log.WriteLine($"[Config] Import error: {ex}");
-                    NotificationsShared.Error($"[Config] Import error: {ex.Message}");
+                    NotificationsShared.Error($"[配置] 导入错误：{ex.Message}");
                 }
                 finally
                 {
@@ -446,7 +472,7 @@ namespace eft_dma_radar.UI.Pages
             catch (Exception ex)
             {
                 Log.WriteLine($"[Config] Import error: {ex}");
-                NotificationsShared.Error($"[Config] Import error: {ex.Message}");
+                NotificationsShared.Error($"[配置] 导入错误：{ex.Message}");
             }
         }
 
@@ -579,7 +605,7 @@ namespace eft_dma_radar.UI.Pages
 
         private void BtnForceOffsetsUpdate_Click(object sender, RoutedEventArgs e)
         {
-            NotificationsShared.Info("IL2CPP offsets update started...");
+            NotificationsShared.Info("IL2CPP 偏移量更新已启动...");
             Task.Run(Il2CppDumper.ForceRedump);
         }
 
@@ -734,7 +760,7 @@ namespace eft_dma_radar.UI.Pages
                 if (type != PlayerType.Default)
                 {
                     var displayName = type == PlayerType.AIRaider ?
-                        "Raider/Rogue/Guard" :
+                        "突袭者/流氓/守卫" :
                         type.GetDescription();
                     var item = new ComboBoxItem
                     {
@@ -745,9 +771,9 @@ namespace eft_dma_radar.UI.Pages
                 }
             }
 
-            playerTypeItems.Add(new() { Content = "Aimbot Locked", Tag = "AimbotLocked" });
-            playerTypeItems.Add(new() { Content = "Focused", Tag = "Focused" });
-            playerTypeItems.Add(new() { Content = "LocalPlayer", Tag = "LocalPlayer" });
+            playerTypeItems.Add(new() { Content = "自瞄锁定", Tag = "AimbotLocked" });
+            playerTypeItems.Add(new() { Content = "自瞄目标", Tag = "Focused" });
+            playerTypeItems.Add(new() { Content = "本地玩家", Tag = "LocalPlayer" });
             playerTypeItems.Sort((x, y) => string.Compare(x.Content.ToString(), y.Content.ToString()));
 
             foreach (var item in playerTypeItems)
@@ -759,7 +785,8 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (var info in _availableInformation)
             {
-                ccbInformation.Items.Add(new CheckComboBoxItem { Content = info });
+                var displayName = InformationDisplayNames.TryGetValue(info, out var dn) ? dn : info;
+                ccbInformation.Items.Add(new CheckComboBoxItem { Content = displayName, Tag = info });
             }
 
             if (cboPlayerType.Items.Count > 0)
@@ -781,21 +808,21 @@ namespace eft_dma_radar.UI.Pages
 
             var entityTypeItems = new List<ComboBoxItem>
             {
-                new() { Content = "Static Container", Tag = "StaticContainer" },
-                new() { Content = "Corpse", Tag = "Corpse" },
-                new() { Content = "Regular Loot", Tag = "RegularLoot" },
-                new() { Content = "Important Loot", Tag = "ImportantLoot" },
-                new() { Content = "Quest Item", Tag = "QuestItem" },
-                new() { Content = "Quest Zone", Tag = "QuestZone" },
-                new() { Content = "Switch", Tag = "Switch" },
-                new() { Content = "Transit", Tag = "Transit" },
-                new() { Content = "Exfil", Tag = "Exfil" },
-                new() { Content = "Door", Tag = "Door" },
-                new() { Content = "Grenade", Tag = "Grenade" },
-                new() { Content = "Tripwire", Tag = "Tripwire" },
-                new() { Content = "Mine", Tag = "Mine" },
-                new() { Content = "Mortar Projectile", Tag = "MortarProjectile" },
-                new() { Content = "Airdrop", Tag = "Airdrop" },
+                new() { Content = "静态容器", Tag = "StaticContainer" },
+                new() { Content = "尸体", Tag = "Corpse" },
+                new() { Content = "普通战利品", Tag = "RegularLoot" },
+                new() { Content = "重要战利品", Tag = "ImportantLoot" },
+                new() { Content = "任务物品", Tag = "QuestItem" },
+                new() { Content = "任务区域", Tag = "QuestZone" },
+                new() { Content = "开关", Tag = "Switch" },
+                new() { Content = "中转点", Tag = "Transit" },
+                new() { Content = "撤离点", Tag = "Exfil" },
+                new() { Content = "门", Tag = "Door" },
+                new() { Content = "手榴弹", Tag = "Grenade" },
+                new() { Content = "绊线", Tag = "Tripwire" },
+                new() { Content = "地雷", Tag = "Mine" },
+                new() { Content = "迫击炮弹", Tag = "MortarProjectile" },
+                new() { Content = "空投", Tag = "Airdrop" },
                 new() { Content = "BTR", Tag = "BTR" }
             };
 
@@ -810,7 +837,8 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (var info in _availableEntityInformation)
             {
-                ccbEntityInformation.Items.Add(new CheckComboBoxItem { Content = info });
+                var displayName = EntityInformationDisplayNames.TryGetValue(info, out var dn) ? dn : info;
+                ccbEntityInformation.Items.Add(new CheckComboBoxItem { Content = displayName, Tag = info });
             }
 
             if (cboEntityType.Items.Count > 0)
@@ -852,11 +880,11 @@ namespace eft_dma_radar.UI.Pages
         {
             var optionsToUpdate = new Dictionary<string, bool>
             {
-                ["Aimview Widget"] = Config.AimviewWidgetEnabled,
-                ["Debug Widget"] = Config.ShowDebugWidget,
-                ["Player Info Widget"] = Config.ShowInfoTab,
-                ["Loot Info Widget"] = Config.ShowLootInfoWidget,
-                ["Quest Info Widget"] = Config.ShowQuestInfoWidget,
+                ["自瞄视野组件"] = Config.AimviewWidgetEnabled,
+                ["调试组件"] = Config.ShowDebugWidget,
+                ["玩家信息组件"] = Config.ShowInfoTab,
+                ["战利品信息组件"] = Config.ShowLootInfoWidget,
+                ["任务信息组件"] = Config.ShowQuestInfoWidget,
                 ["HotKey Info Widget"] = Config.ESP.ShowHotkeyInfoWidget
             };
 
@@ -873,9 +901,9 @@ namespace eft_dma_radar.UI.Pages
         {
             var optionsToUpdate = new Dictionary<string, bool>
             {
-                //["Connect Groups"] = Config.ConnectGroups,
-                ["Mask Names"] = Config.MaskNames,
-                ["Players on Top"] = Config.PlayersOnTop
+                //["连接队伍"] = Config.ConnectGroups,
+                ["隐藏名称"] = Config.MaskNames,
+                ["玩家置顶"] = Config.PlayersOnTop
             };
 
             foreach (CheckComboBoxItem item in ccbGeneralOptions.Items)
@@ -942,9 +970,9 @@ namespace eft_dma_radar.UI.Pages
 
                 foreach (CheckComboBoxItem item in ccbInformation.Items)
                 {
-                    var info = item.Content.ToString();
+                    var infoKey = item.Tag?.ToString() ?? item.Content.ToString();
 
-                    if (settings.Information.Contains(info))
+                    if (settings.Information.Contains(infoKey))
                         item.IsSelected = true;
                     else
                         item.IsSelected = false;
@@ -968,8 +996,8 @@ namespace eft_dma_radar.UI.Pages
             var showKD = false;
             foreach (CheckComboBoxItem item in ccbInformation.SelectedItems)
             {
-                var info = item.Content.ToString();
-                if (info == "KD")
+                var infoKey = item.Tag?.ToString() ?? item.Content.ToString();
+                if (infoKey == "KD")
                 {
                     showKD = true;
                     break;
@@ -997,7 +1025,7 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (CheckComboBoxItem item in ccbInformation.SelectedItems)
             {
-                settings.Information.Add(item.Content.ToString());
+                settings.Information.Add(item.Tag?.ToString() ?? item.Content.ToString());
             }
 
             Config.Save();
@@ -1017,9 +1045,9 @@ namespace eft_dma_radar.UI.Pages
 
                 foreach (CheckComboBoxItem item in ccbEntityInformation.Items)
                 {
-                    var info = item.Content.ToString();
+                    var infoKey = item.Tag?.ToString() ?? item.Content.ToString();
 
-                    if (settings.Information.Contains(info))
+                    if (settings.Information.Contains(infoKey))
                         item.IsSelected = true;
                     else
                         item.IsSelected = false;
@@ -1087,7 +1115,7 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (CheckComboBoxItem item in ccbEntityInformation.SelectedItems)
             {
-                settings.Information.Add(item.Content.ToString());
+                settings.Information.Add(item.Tag?.ToString() ?? item.Content.ToString());
             }
 
             switch (entityType)
@@ -1685,11 +1713,11 @@ namespace eft_dma_radar.UI.Pages
                     lblWebRadarLink.Text = "";
                     ToggleWebRadarControls(true);
 
-                    NotificationsShared.Info("Web Radar Server stopped successfully.");
+                    NotificationsShared.Info("Web雷达服务器已成功停止。");
                 }
                 catch (Exception ex)
                 {
-                    NotificationsShared.Error($"ERROR Stopping Web Radar Server: {ex.Message}");
+                    NotificationsShared.Error($"停止Web雷达服务器时出错：{ex.Message}");
                     btnWebRadarStart.Content = "Stop";
                     ToggleWebRadarControls(true);
                 }
@@ -1716,11 +1744,11 @@ namespace eft_dma_radar.UI.Pages
 
                     lblWebRadarLink.Text = $"{webClientUrl}:{port}";
 
-                    NotificationsShared.Success("Web Radar Server started successfully!");
+                    NotificationsShared.Success("Web雷达服务器已成功启动！");
                 }
                 catch (Exception ex)
                 {
-                    NotificationsShared.Error($"ERROR Starting Web Radar Server: {ex.Message}");
+                    NotificationsShared.Error($"启动Web雷达服务器时出错：{ex.Message}");
                     btnWebRadarStart.Content = "Start";
                     ToggleWebRadarControls(true);
                 }
@@ -1738,18 +1766,18 @@ namespace eft_dma_radar.UI.Pages
                     Config.WebRadar.IP = localIP;
                     Config.Save();
 
-                    NotificationsShared.Success($"Auto-detected local IP: {localIP}");
+                    NotificationsShared.Success($"自动检测到本地IP: {localIP}");
                     Log.WriteLine($"[AutoDetectIP] Found local IP: {localIP}");
                 }
                 else
                 {
-                    NotificationsShared.Warning("Could not auto-detect local IP address. Please enter manually.");
+                    NotificationsShared.Warning("无法自动检测到本地IP地址，请手动输入。");
                     Log.WriteLine("[AutoDetectIP] Failed to detect local IP");
                 }
             }
             catch (Exception ex)
             {
-                NotificationsShared.Error($"Error auto-detecting IP: {ex.Message}");
+                NotificationsShared.Error($"自动检测IP时出错：{ex.Message}");
                 Log.WriteLine($"[AutoDetectIP] Error: {ex.Message}");
             }
         }
@@ -1771,8 +1799,8 @@ namespace eft_dma_radar.UI.Pages
                 if (exists)
                 {
                     var res = MessageBox.Show(
-                        "An API key already exists. Do you want to replace it?",
-                        "Replace API Key",
+                        "已存在API密钥。是否要替换它？",
+                        "替换API密钥",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Question);
 
@@ -1789,14 +1817,14 @@ namespace eft_dma_radar.UI.Pages
                 UpdateApiStatus();
 
                 MessageBox.Show(
-                    exists ? "API key updated successfully." : "API key saved securely (encrypted).",
-                    "Success",
+                    exists ? "API密钥已成功更新。" : "API密钥已安全保存（加密）。",
+                    "成功",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to save API key:\n{ex.Message}", "Error",
+                MessageBox.Show($"保存API密钥失败：\n{ex.Message}", "错误",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -1815,7 +1843,7 @@ namespace eft_dma_radar.UI.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to open folder:\n{ex.Message}", "Error",
+                MessageBox.Show($"打开文件夹失败：\n{ex.Message}", "错误",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1831,7 +1859,7 @@ namespace eft_dma_radar.UI.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to delete api.json:\n{ex.Message}", "Error",
+                MessageBox.Show($"删除api.json失败：\n{ex.Message}", "错误",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1848,23 +1876,23 @@ namespace eft_dma_radar.UI.Pages
 
                 switch (widgetOption)
                 {
-                    case "Aimview Widget":
+                    case "自瞄视野组件":
                         Config.AimviewWidgetEnabled = isSelected;
                         break;
-                    case "Debug Widget":
+                    case "调试组件":
                         Config.ShowDebugWidget = isSelected;
                         break;
-                    case "Player Info Widget":
+                    case "玩家信息组件":
                         Config.ShowInfoTab = isSelected;
                         break;
-                    case "Loot Info Widget":
+                    case "战利品信息组件":
                         Config.ShowLootInfoWidget = isSelected;
                         break;
-                    case "Quest Info Widget":
+                    case "任务信息组件":
                         Config.ShowQuestInfoWidget = isSelected;
                         break;
 
-                    case "HotKey Info Widget":
+                    case "快捷键信息组件":
                         Config.ESP.ShowHotkeyInfoWidget = isSelected;
                         break;
                 }
@@ -1886,13 +1914,13 @@ namespace eft_dma_radar.UI.Pages
 
                 switch (option)
                 {
-                    case "Connect Groups":
+                    case "连接队伍":
                         Config.ConnectGroups = isSelected;
                         break;
-                    case "Mask Names":
+                    case "隐藏名称":
                         Config.MaskNames = isSelected;
                         break;
-                    case "Players on Top":
+                    case "玩家置顶":
                         Config.PlayersOnTop = isSelected;
                         break;
                 }
@@ -1995,7 +2023,7 @@ namespace eft_dma_radar.UI.Pages
                     Config.FontName = string.Empty;
                     Config.Save();
                     ResetToDefaultFont();
-                    NotificationsShared.Success("Reverted to default built-in font.");
+                    NotificationsShared.Success("已恢复为默认内置字体。");
                 }
                 else
                 {
@@ -2037,13 +2065,13 @@ namespace eft_dma_radar.UI.Pages
             try
             {
                 File.Copy(dialog.FileName, dest, overwrite: true);
-                NotificationsShared.Success($"Font '{fontName}' uploaded successfully!");
+                NotificationsShared.Success($"字体 '{fontName}' 上传成功！");
                 LoadFontDropdown(selectName: fontName);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Failed to copy font:\n{ex.Message}",
-                    "Upload Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show($"复制字体失败：\n{ex.Message}",
+                    "上传错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -2053,13 +2081,13 @@ namespace eft_dma_radar.UI.Pages
                 || !cmbFontSelector.IsEnabled
                 || fontName == DefaultFontLabel)
             {
-                NotificationsShared.Warning("Select a custom font to remove. The default font cannot be removed.");
+                NotificationsShared.Warning("请选择要移除的自定义字体。默认字体无法移除。");
                 return;
             }
 
             var result = System.Windows.MessageBox.Show(
-                $"Remove '{fontName}' from the font list?\nThe font file will NOT be deleted from your PC.",
-                "Remove Font", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                $"从字体列表中移除 '{fontName}'？\n字体文件不会从电脑中删除。",
+                "移除字体", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result != MessageBoxResult.Yes) return;
 
@@ -2081,7 +2109,7 @@ namespace eft_dma_radar.UI.Pages
                 }
             }
 
-            NotificationsShared.Success($"Font '{fontName}' removed from the list.");
+            NotificationsShared.Success($"字体 '{fontName}' 已从列表中移除。");
         }
 
         /// <summary>
@@ -2169,8 +2197,8 @@ namespace eft_dma_radar.UI.Pages
             catch (Exception ex)
             {
                 Log.WriteLine($"[Font] Error applying font '{fontName}': {ex.Message}");
-                System.Windows.MessageBox.Show($"Error applying font '{fontName}':\n{ex.Message}",
-                    "Font Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show($"应用字体 '{fontName}' 时出错：\n{ex.Message}",
+                    "字体错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
@@ -2816,6 +2844,84 @@ namespace eft_dma_radar.UI.Pages
             };
         }
 
+        private static readonly Dictionary<string, string> HotkeyActionDisplayNames = new()
+        {
+            // Loot
+            ["ShowLoot"] = "显示战利品",
+            ["ShowWishlistLoot"] = "显示心愿单",
+            ["ShowMeds"] = "显示药品",
+            ["ShowFood"] = "显示食物",
+            ["ShowWeapons"] = "显示武器",
+            ["ShowBackpacks"] = "显示背包",
+            ["ShowContainers"] = "显示容器",
+            ["FuserImportantCorpseLoot"] = "融合器重要尸体战利品",
+            ["FuserImportantPlayerLoot"] = "融合器重要玩家战利品",
+            // Fuser ESP
+            ["ToggleFuserESP"] = "切换融合器ESP",
+            ["MiniRadarZoomIn"] = "小雷达放大",
+            ["MiniRadarZoomOut"] = "小雷达缩小",
+            ["FuserQuestInfo"] = "融合器任务信息",
+            // Memory Writes - Global
+            ["ToggleRageMode"] = "切换狂暴模式",
+            // Memory Writes - Aimbot
+            ["ToggleAimbot"] = "切换自瞄",
+            ["EngageAimbot"] = "启动自瞄",
+            ["ToggleAimbotMode"] = "切换自瞄模式",
+            ["AimbotBone"] = "自瞄骨骼",
+            ["SafeLock"] = "安全锁定",
+            ["RandomBone"] = "随机骨骼",
+            ["AutoBone"] = "自动骨骼",
+            ["HeadshotAI"] = "AI爆头",
+            // Memory Writes - Weapons
+            ["NoMalfunctions"] = "无故障",
+            ["FastWeaponOps"] = "快速武器操作",
+            ["DisableWeaponCollision"] = "禁用武器碰撞",
+            ["NoRecoil"] = "无后座",
+            // Memory Writes - Movement
+            ["InfiniteStamina"] = "无限耐力",
+            ["WideLean"] = "宽探头",
+            ["WideLeanUp"] = "宽探头向上",
+            ["WideLeanRight"] = "宽探头向右",
+            ["WideLeanLeft"] = "宽探头向左",
+            ["MoveSpeed"] = "移动速度",
+            // Memory Writes - World
+            ["DisableShadows"] = "禁用阴影",
+            ["DisableGrass"] = "禁用草地",
+            ["ClearWeather"] = "晴朗天气",
+            ["TimeOfDay"] = "时间",
+            ["FullBright"] = "全亮度",
+            ["LootThroughWalls"] = "穿墙摸包",
+            ["ExtendedReach"] = "延长距离",
+            ["EngageLTW"] = "启动穿墙缩放",
+            // Memory Writes - Camera
+            ["NoVisor"] = "无面罩",
+            ["NightVision"] = "夜视",
+            ["ThermalVision"] = "热成像",
+            ["ThirdPerson"] = "第三人称",
+            ["OwlMode"] = "猫头鹰模式",
+            ["InstantZoom"] = "瞬间缩放",
+            // Memory Writes - Misc
+            ["BigHeads"] = "大头模式",
+            // General Settings
+            ["AimviewWidget"] = "自瞄视野组件",
+            ["DebugWidget"] = "调试组件",
+            ["PlayerInfoWidget"] = "玩家信息组件",
+            ["LootInfoWidget"] = "战利品信息组件",
+            ["QuestInfoWidget"] = "任务信息组件",
+            ["ConnectGroups"] = "连接队伍",
+            ["MaskNames"] = "隐藏名称",
+            ["PlayersOnTop"] = "玩家置顶",
+            ["ZoomOut"] = "缩小",
+            ["ZoomIn"] = "放大",
+            ["BattleMode"] = "战斗模式",
+            ["QuestHelper"] = "任务助手",
+            // Config
+            ["SaveConfig"] = "保存配置",
+            ["LoadConfig"] = "加载配置",
+            ["TestAction"] = "测试操作",
+            ["TestAction2"] = "测试操作2"
+        };
+
         private void LoadHotkeyActions()
         {
             Log.WriteLine("[HotkeyCombo] Loading available hotkey actions...");
@@ -2824,7 +2930,7 @@ namespace eft_dma_radar.UI.Pages
 
             foreach (PropertyInfo prop in typeof(HotkeyConfig).GetProperties())
             {
-                var displayName = SplitCamelCase(prop.Name);
+                var displayName = HotkeyActionDisplayNames.TryGetValue(prop.Name, out var dn) ? dn : SplitCamelCase(prop.Name);
                 AvailableHotkeyActions.Add(new HotkeyActionModel
                 {
                     Key = prop.Name,
@@ -2862,7 +2968,7 @@ namespace eft_dma_radar.UI.Pages
                     {
                         Action = displayName,
                         Key = keyString,
-                        Type = entry.Mode == HotkeyMode.Toggle ? "Toggle" : "OnKey"
+                        Type = entry.Mode == HotkeyMode.Toggle ? "切换" : "按住"
                     });
 
                     if (entry.Mode == HotkeyMode.Toggle)
@@ -2947,19 +3053,19 @@ namespace eft_dma_radar.UI.Pages
                     break;
                 case nameof(HotkeyConfig.ShowMeds):
                     LootFilterControl.ShowMeds = isActive;
-                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("Show Meds", isActive);
+                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("显示药品", isActive);
                     break;
                 case nameof(HotkeyConfig.ShowFood):
                     LootFilterControl.ShowFood = isActive;
-                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("Show Food", isActive);
+                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("显示食物", isActive);
                     break;
                 case nameof(HotkeyConfig.ShowWeapons):
                     LootFilterControl.ShowWeapons = isActive;
-                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("Show Weapons", isActive);
+                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("显示武器", isActive);
                     break;
                 case nameof(HotkeyConfig.ShowBackpacks):
                     LootFilterControl.ShowBackpacks = isActive;
-                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("Show Backpacks", isActive);
+                    mainWindow.LootSettingsControl.UpdateSpecificLootFilterOption("显示背包", isActive);
                     break;
                 case nameof(HotkeyConfig.ShowContainers):
                     Config.Containers.Show = isActive;
@@ -2988,7 +3094,7 @@ namespace eft_dma_radar.UI.Pages
                     break;
                 case nameof(HotkeyConfig.FuserQuestInfo):
                     Config.ESP.ShowQuestInfoWidget = isActive;
-                    mainWindow.ESPControl.UpdateSpecificWidgetOption("Quest Info Widget", isActive);
+                    mainWindow.ESPControl.UpdateSpecificWidgetOption("任务信息组件", isActive);
                     break;
                 case nameof(HotkeyConfig.ImportantCorpseLoot):
                     Config.EntityTypeSettings.GetSettings("Corpse").ShowImportantLoot = isActive;
@@ -3037,15 +3143,15 @@ namespace eft_dma_radar.UI.Pages
                     break;
                 case nameof(HotkeyConfig.SafeLock):
                     Config.MemWrites.Aimbot.SilentAim.SafeLock = isActive;
-                    mainWindow.MemoryWritingControl.UpdateSpecificAimbotOption("Safe Lock", isActive);
+                    mainWindow.MemoryWritingControl.UpdateSpecificAimbotOption("安全锁定", isActive);
                     break;
                 case nameof(HotkeyConfig.RandomBone):
                     Config.MemWrites.Aimbot.RandomBone.Enabled = isActive;
-                    mainWindow.MemoryWritingControl.UpdateSpecificAimbotOption("Random Bone", isActive);
+                    mainWindow.MemoryWritingControl.UpdateSpecificAimbotOption("随机骨骼", isActive);
                     break;
                 case nameof(HotkeyConfig.AutoBone):
                     Config.MemWrites.Aimbot.SilentAim.AutoBone = isActive;
-                    mainWindow.MemoryWritingControl.UpdateSpecificAimbotOption("Auto Bone", isActive);
+                    mainWindow.MemoryWritingControl.UpdateSpecificAimbotOption("自动骨骼", isActive);
                     break;
                 case nameof(HotkeyConfig.HeadshotAI):
                     Config.MemWrites.Aimbot.HeadshotAI = isActive;
@@ -3092,36 +3198,36 @@ namespace eft_dma_radar.UI.Pages
                 #region General Settings
                 case nameof(HotkeyConfig.AimviewWidget):
                     Config.AimviewWidgetEnabled = isActive;
-                    UpdateSpecificWidgetOption("Aimview Widget", isActive);
+                    UpdateSpecificWidgetOption("自瞄视野组件", isActive);
                     break;
                 case nameof(HotkeyConfig.DebugWidget):
                     Config.ShowDebugWidget = isActive;
-                    UpdateSpecificWidgetOption("Debug Widget", isActive);
+                    UpdateSpecificWidgetOption("调试组件", isActive);
                     break;
                 case nameof(HotkeyConfig.PlayerInfoWidget):
                     Config.ShowInfoTab = isActive;
-                    UpdateSpecificWidgetOption("Player Info Widget", isActive);
+                    UpdateSpecificWidgetOption("玩家信息组件", isActive);
                     break;
                 case nameof(HotkeyConfig.LootInfoWidget):
                     Config.ShowLootInfoWidget = isActive;
-                    UpdateSpecificWidgetOption("Loot Info Widget", isActive);
+                    UpdateSpecificWidgetOption("战利品信息组件", isActive);
                     break;
                 case nameof(HotkeyConfig.QuestInfoWidget):
                     Config.ShowQuestInfoWidget = isActive;
-                    UpdateSpecificWidgetOption("Quest Info Widget", isActive);
+                    UpdateSpecificWidgetOption("任务信息组件", isActive);
                     break;
 
                 //case nameof(HotkeyConfig.ConnectGroups):
                 //    Config.ConnectGroups = isActive;
-                //    UpdateSpecificGeneralOption("Connect Groups", isActive);
+                //    UpdateSpecificGeneralOption("连接队伍", isActive);
                 //    break;
                 case nameof(HotkeyConfig.MaskNames):
                     Config.MaskNames = isActive;
-                    UpdateSpecificGeneralOption("Mask Names", isActive);
+                    UpdateSpecificGeneralOption("隐藏名称", isActive);
                     break;
                 case nameof(HotkeyConfig.PlayersOnTop):
                     Config.PlayersOnTop = isActive;
-                    UpdateSpecificGeneralOption("Players on Top", isActive);
+                    UpdateSpecificGeneralOption("玩家置顶", isActive);
                     break;
                 case nameof(HotkeyConfig.ZoomIn):
                     ExecuteContinuousAction(actionKey, () => mainWindow.ZoomIn(HK_ZoomAmt));
@@ -3193,13 +3299,13 @@ namespace eft_dma_radar.UI.Pages
             {
                 if (keyInputBox.SelectedKeyCode == -1)
                 {
-                    NotificationsShared.Error("Please select a key or mouse button first.");
+                    NotificationsShared.Error("请先选择一个键或鼠标按钮。");
                     return;
                 }
 
                 var keyName = keyInputBox.GetCurrentKeyName();
                 var keyCode = keyInputBox.SelectedKeyCode;
-                var type = rdbToggle.IsChecked == true ? "Toggle" : "OnKey";
+                var type = rdbToggle.IsChecked == true ? "切换" : "按住";
                 var existingAction = _hotkeyList.FirstOrDefault(h => h.Action == actionModel.Name);
 
                 if (existingAction != null)
@@ -3226,7 +3332,7 @@ namespace eft_dma_radar.UI.Pages
                 {
                     entry.Enabled = true;
                     entry.Key = keyCode;
-                    entry.Mode = type == "Toggle" ? HotkeyMode.Toggle : HotkeyMode.OnKey;
+                    entry.Mode = type == "切换" ? HotkeyMode.Toggle : HotkeyMode.OnKey;
                     Config.Save();
 
                     RegisterHotkeyHandlers();
@@ -3338,8 +3444,8 @@ namespace eft_dma_radar.UI.Pages
             var configToLoad = selectedConfigName + ".json";
 
             var confirm = MessageBox.Show(
-                $"WARNING: Loading configuration '{selectedConfigName}' will overwrite current settings.\nContinue?",
-                "Confirm Load", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                $"警告：加载配置 '{selectedConfigName}' 将覆盖当前设置。\n继续？",
+                "确认加载", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (confirm != MessageBoxResult.Yes)
                 return;
@@ -3360,17 +3466,17 @@ namespace eft_dma_radar.UI.Pages
                     MainWindowInstance.UpdateWindowTitle(txtCurrentConfig.Text);
                     RefreshConfigList();
 
-                    NotificationsShared.Success($"Loaded '{selectedConfigName}' successfully!");
+                    NotificationsShared.Success($"成功加载 '{selectedConfigName}'！");
                 }
                 else
                 {
-                    NotificationsShared.Error($"Failed to load '{selectedConfigName}'!");
+                    NotificationsShared.Error($"加载 '{selectedConfigName}' 失败！");
                 }
             }
             catch (Exception ex)
             {
                 Log.WriteLine($"Error loading config: {ex}");
-                NotificationsShared.Error($"Error loading config: {ex.Message}");
+                NotificationsShared.Error($"加载配置时出错：{ex.Message}");
             }
         }
 
@@ -3455,7 +3561,7 @@ namespace eft_dma_radar.UI.Pages
             catch (Exception ex)
             {
                 Log.WriteLine($"[Config] Error applying new config: {ex}");
-                MessageBox.Show($"Error applying configuration: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"应用配置时出错：{ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -3464,7 +3570,7 @@ namespace eft_dma_radar.UI.Pages
             var newConfigName = txtNewConfigName.Text.Trim();
             if (string.IsNullOrWhiteSpace(newConfigName))
             {
-                MessageBox.Show("Please enter a name for the new config.", "Error",
+                MessageBox.Show("请输入新配置的名称。", "错误",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -3504,17 +3610,17 @@ namespace eft_dma_radar.UI.Pages
                         _ignoreConfigSelectionChanged = false;
                     }
 
-                    NotificationsShared.Success($"Config '{newConfigName}' created and saved!");
+                    NotificationsShared.Success($"配置 '{newConfigName}' 已创建并保存！");
                 }
                 else
                 {
-                    NotificationsShared.Error($"Failed to save '{newConfigName}'!");
+                    NotificationsShared.Error($"保存 '{newConfigName}' 失败！");
                 }
             }
             catch (Exception ex)
             {
                 Log.WriteLine($"[Config] Error creating new config: {ex}");
-                NotificationsShared.Error($"Error creating new config: {ex.Message}");
+                NotificationsShared.Error($"创建新配置时出错：{ex.Message}");
             }
         }
 
@@ -3529,18 +3635,18 @@ namespace eft_dma_radar.UI.Pages
             if (cboConfigs.SelectedIndex > 0 && !configToDelete.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
                 configToDelete += ".json";
 
-            var result = MessageBox.Show($"Are you sure you want to delete config '{configToDelete}'?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show($"确定要删除配置 '{configToDelete}' 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
                 if (ConfigManager.DeleteConfig(configToDelete))
                 {
-                    MessageBox.Show($"Config '{Path.GetFileNameWithoutExtension(configToDelete)}' deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"配置 '{Path.GetFileNameWithoutExtension(configToDelete)}' 已成功删除。", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
                     RefreshConfigList();
                 }
                 else
                 {
-                    MessageBox.Show($"Failed to delete config '{Path.GetFileNameWithoutExtension(configToDelete)}'.\n" + "Check logs for more details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"删除配置 '{Path.GetFileNameWithoutExtension(configToDelete)}' 失败。\n" + "查看日志获取更多信息。", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -3548,7 +3654,7 @@ namespace eft_dma_radar.UI.Pages
         private void BtnResetConfig_Click(object sender, RoutedEventArgs e)
         {
             ConfigManager.ResetToDefault();
-            MessageBox.Show("Default config restored successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("默认配置已成功恢复。", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
             RefreshConfigList();
         }
 
@@ -3575,7 +3681,7 @@ namespace eft_dma_radar.UI.Pages
             {
                 if (Config == null)
                 {
-                    NotificationsShared.Warning("[Config] No configuration available to export.");
+                    NotificationsShared.Warning("[配置] 没有可导出的配置。");
                     return;
                 }
 
@@ -3587,13 +3693,13 @@ namespace eft_dma_radar.UI.Pages
                 var jsonData = JsonSerializer.Serialize(configForExport, _exportOptions);
                 Clipboard.SetText(jsonData);
 
-                NotificationsShared.Success("[Config] Configuration exported to clipboard successfully! (Cache and WebRadar settings excluded)");
-                Log.WriteLine("[Config] Configuration exported to clipboard (excluding Cache and WebRadar)");
+                NotificationsShared.Success("[配置] 配置已成功导出到剪贴板！（已排除缓存和Web雷达设置）");
+                Log.WriteLine("[配置] 配置已导出到剪贴板（已排除缓存和Web雷达）");
             }
             catch (Exception ex)
             {
-                Log.WriteLine($"[Config] Export error: {ex}");
-                NotificationsShared.Error($"[Config] Export error: {ex.Message}");
+                Log.WriteLine($"[配置] 导出错误：{ex}");
+                NotificationsShared.Error($"[配置] 导出错误：{ex.Message}");
             }
         }
 
@@ -3610,27 +3716,27 @@ namespace eft_dma_radar.UI.Pages
             {
                 if (!Clipboard.ContainsText())
                 {
-                    NotificationsShared.Warning("[Config] Clipboard does not contain text data.");
+                    NotificationsShared.Warning("[配置] 剪贴板不包含文本数据。");
                     return;
                 }
 
                 var clipboardText = Clipboard.GetText();
 
                 var confirm = MessageBox.Show(
-                    "WARNING: Importing a configuration will replace current settings including:\n\n" +
-                    "Ã¯Â¿? General settings & UI preferences\n" +
-                    "Ã¯Â¿? Player/Entity display settings\n" +
-                    "Ã¯Â¿? Color configurations\n" +
-                    "Ã¯Â¿? Hotkey assignments\n" +
-                    "Ã¯Â¿? ESP configurations\n" +
-                    "Ã¯Â¿? Panel and toolbar positions\n" +
-                    "Ã¯Â¿? Memory writing settings\n" +
-                    "Ã¯Â¿? Loot settings\n" +
-                    "Ã¯Â¿? Quest helper settings\n" +
-                    "Ã¯Â¿? Container settings\n\n" +
-                    "NOTE: Cache data will not be preserved.\n\n" +
-                    "This action cannot be undone. Continue?",
-                    "Import Configuration Warning",
+                    "警告：导入配置将替换当前设置，包括：\n\n" +
+                    "• 通用设置和UI偏好\n" +
+                    "• 玩家/实体显示设置\n" +
+                    "• 颜色配置\n" +
+                    "• 快捷键设置\n" +
+                    "• ESP配置\n" +
+                    "• 面板和工具栏位置\n" +
+                    "• 内存修改设置\n" +
+                    "• 战利品设置\n" +
+                    "• 任务助手设置\n" +
+                    "• 容器设置\n\n" +
+                    "注意：缓存数据不会被保留。\n\n" +
+                    "此操作无法撤销。继续？",
+                    "导入配置警告",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 
@@ -3648,7 +3754,7 @@ namespace eft_dma_radar.UI.Pages
 
                 if (importedConfig == null)
                 {
-                    NotificationsShared.Error("[Config] Clipboard data is not a valid configuration.");
+                    NotificationsShared.Error("[配置] 剪贴板数据不是有效的配置。");
                     return;
                 }
 
@@ -3676,18 +3782,18 @@ namespace eft_dma_radar.UI.Pages
                     Config.ConfigName = finalName + ".json";
                     txtCurrentConfig.Text = finalName;
 
-                    NotificationsShared.Success($"Configuration imported and saved as '{finalName}'!");
+                    NotificationsShared.Success($"配置已导入并保存为 '{finalName}'！");
                     RefreshConfigList();
                 }
                 else
                 {
-                    NotificationsShared.Error("[Config] Failed to save imported configuration.");
+                    NotificationsShared.Error("[配置] 保存导入的配置失败。");
                 }
             }
             catch (Exception ex)
             {
                 Log.WriteLine($"[Config] Import error: {ex}");
-                NotificationsShared.Error($"[Config] Import error: {ex.Message}");
+                NotificationsShared.Error($"[配置] 导入错误：{ex.Message}");
             }
             finally
             {

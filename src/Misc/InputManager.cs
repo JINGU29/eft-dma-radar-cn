@@ -1,4 +1,4 @@
-﻿using eft_dma_radar.Common.DMA;
+using eft_dma_radar.Common.DMA;
 using eft_dma_radar.Common.Misc;
 using eft_dma_radar.Misc;
 using eft_dma_radar.Tarkov;
@@ -51,7 +51,7 @@ namespace eft_dma_radar.Common.Misc
                 {
                     _safeMode = true;
                     Log.WriteLine("[InputManager] Starting in Safe Mode - Input functionality disabled");
-                    NotificationsShared.Warning("[InputManager] Safe Mode - Input functionality disabled");
+                    NotificationsShared.Warning("[输入管理器] 安全模式 - 输入功能已禁用");
                     return;
                 }
 
@@ -68,19 +68,19 @@ namespace eft_dma_radar.Common.Misc
                 if (InputManager.InitKeyboard())
                 {
                     Log.WriteLine("[InputManager] Initialized");
-                    NotificationsShared.Success("[InputManager] Initialized successfully!");
+                    NotificationsShared.Success("[输入管理器] 初始化成功！");
                 }
                 else
                 {
                     Log.WriteLine("ERROR Initializing Input Manager");
-                    NotificationsShared.Error("[InputManager] Failed to initialize, you may need to restart your gaming pc for hotkeys to work.");
+                    NotificationsShared.Error("[输入管理器] 初始化失败，您可能需要重启电脑以使热键生效。");
                 }
             }
             catch (Exception ex)
             {
                 Log.WriteLine($"[InputManager] Error during initialization: {ex.Message}");
                 _safeMode = true;
-                NotificationsShared.Warning("[InputManager] Initialization failed - Safe Mode active");
+                NotificationsShared.Warning("[输入管理器] 初始化失败 - 安全模式已激活");
             }
         }
 

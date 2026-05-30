@@ -19,7 +19,7 @@ namespace eft_dma_radar.Common.Misc.Data.TarkovMarket
                 { "query",
                 """
                 {
-                  maps {
+                  maps(lang: zh) {
                     name
                     nameId
                     extracts {
@@ -32,7 +32,7 @@ namespace eft_dma_radar.Common.Misc.Data.TarkovMarket
                       position { x, y, z }
                     }
                   }
-                  items {
+                  items(lang: zh) {
                     id
                     name
                     shortName
@@ -61,16 +61,16 @@ namespace eft_dma_radar.Common.Misc.Data.TarkovMarket
                       }
                     }
                   }
-                  questItems {
+                  questItems(lang: zh) {
                     id
                     shortName
                   }
-                  lootContainers {
+                  lootContainers(lang: zh) {
                     id
                     normalizedName
                     name
                   }
-                  tasks {
+                  tasks(lang: zh) {
                     id
                     name
                     trader {
@@ -256,7 +256,7 @@ namespace eft_dma_radar.Common.Misc.Data.TarkovMarket
                       status
                     }
                   }
-                  traders {
+                  traders(lang: zh) {
                     id
                     name
                   }

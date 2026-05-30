@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Player History" Style="{StaticResource PanelHeaderText}"/>
+                <TextBlock Text="玩家历史" Style="{StaticResource PanelHeaderText}"/>
 
                 <!-- Close button -->
                 <Border Grid.Column="1" Style="{StaticResource CloseButtonBorder}">
@@ -44,12 +44,12 @@
 
                 <DataGrid x:Name="playerHistoryDataGrid" 
                           Grid.Row="0"
-                          ToolTip="Double-click on a player to add them to watchlist. Right-click to remove."
+                          ToolTip="双击玩家添加到监视列表。右键移除。"
                           Style="{StaticResource StandardDataGrid}">
 
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem x:Name="mnuRemoveEntry" Header="Remove Selected">
+                            <MenuItem x:Name="mnuRemoveEntry" Header="移除选中项">
                                 <MenuItem.Icon>
                                     <Path Width="14" Height="14" Stretch="Uniform"
                                           Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
@@ -57,7 +57,7 @@
                                 </MenuItem.Icon>
                             </MenuItem>
                             <Separator Margin="-28,0,0,0"/>
-                            <MenuItem x:Name="mnuClearAll" Header="Clear All History">
+                            <MenuItem x:Name="mnuClearAll" Header="清空所有历史">
                                 <MenuItem.Icon>
                                     <Path Width="14" Height="14" Stretch="Uniform"
                                           Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
@@ -106,7 +106,7 @@
                     </DataGrid.CellStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*">
+                        <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="*">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource StandardCellTextStyle}">
                                     <Style.Triggers>
@@ -124,7 +124,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Account" Binding="{Binding Acct}" Width="80">
+                        <DataGridTextColumn Header="账户" Binding="{Binding Acct}" Width="80">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource CenteredCellTextStyle}">
                                     <Setter Property="FontWeight" Value="SemiBold"/>
@@ -146,7 +146,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="80">
+                        <DataGridTextColumn Header="类型" Binding="{Binding Type}" Width="80">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource CenteredCellTextStyle}"/>
                             </DataGridTextColumn.ElementStyle>
@@ -164,7 +164,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Hours" Binding="{Binding Hours}" Width="60">
+                        <DataGridTextColumn Header="时长" Binding="{Binding Hours}" Width="60">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource BoldCellTextStyle}">
                                     <Setter Property="Foreground" Value="White"/>
@@ -177,7 +177,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Last Seen" Binding="{Binding LastSeenFormatted}" CanUserSort="True" SortMemberPath="LastSeen" Width="80">
+                        <DataGridTextColumn Header="最后出现" Binding="{Binding LastSeenFormatted}" CanUserSort="True" SortMemberPath="LastSeen" Width="80">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource CenteredCellTextStyle}"/>
                             </DataGridTextColumn.ElementStyle>

@@ -1,4 +1,4 @@
-﻿global using eft_dma_radar;
+global using eft_dma_radar;
 global using eft_dma_radar.Common;
 global using eft_dma_radar.Misc;
 global using SDK;
@@ -245,7 +245,7 @@ namespace eft_dma_radar
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to initialize configuration: {ex.Message}", "Error",
+                MessageBox.Show($"配置初始化失败：{ex.Message}", "错误",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
@@ -283,7 +283,7 @@ namespace eft_dma_radar
             {
                 errorMessage += "\n\nWould you like to continue in Safe Mode? (UI and Config only)";
 
-                var result = MessageBox.Show(errorMessage, "Continue in Safe Mode?", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                var result = MessageBox.Show(errorMessage, "是否以安全模式继续？", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                     StartApplication(app, ApplicationMode.SafeMode);
@@ -293,8 +293,8 @@ namespace eft_dma_radar
             else
             {
                 var result = MessageBox.Show(
-                    $"Startup Error: {ex.Message}\n\nWould you like to start in Safe Mode?",
-                    "Startup Error",
+                    $"启动错误：{ex.Message}\n\n是否以安全模式启动？",
+                    "启动错误",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);
 

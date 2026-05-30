@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Loot" Style="{StaticResource PanelHeaderText}"/>
+                <TextBlock Text="战利品" Style="{StaticResource PanelHeaderText}"/>
 
                 <!-- Close button -->
                 <Border Grid.Column="1" Style="{StaticResource CloseButtonBorder}">
@@ -38,9 +38,8 @@
             <ScrollViewer Style="{StaticResource PanelScrollViewer}">
                 <hc:SimpleStackPanel>
                     <!-- General Settings -->
-                    <Expander x:Name="expGeneralSettings" Header="General Settings" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                    <Expander x:Name="expGeneralSettings" Header="通用设置" Style="{StaticResource PanelExpander}" IsExpanded="True">
                         <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                            <!-- General Setting Checkboxes -->
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -51,21 +50,20 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <CheckBox x:Name="chkProcessLoot" Content="Show Loot" Tag="ProcessLoot" 
+                                <CheckBox x:Name="chkProcessLoot" Content="显示战利品" Tag="ProcessLoot" 
                                      Style="{StaticResource DynamicCheckBoxStyle}" 
                                      Grid.Row="0" Grid.Column="0" Margin="0,0,5,8"/>
 
-                                <CheckBox x:Name="chkShowLootWishlist" Content="Show Wishlist" Tag="ShowWishlist"
+                                <CheckBox x:Name="chkShowLootWishlist" Content="显示心愿单" Tag="ShowWishlist"
                                           Style="{StaticResource DynamicCheckBoxStyle}" 
                                           Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
                             </Grid>
                         </hc:SimpleStackPanel>
                     </Expander>
 
-                    <!-- Price Settings -->
-                    <Expander x:Name="expPriceSettings" Header="Price Settings" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                    <Expander x:Name="expPriceSettings" Header="价格设置" Style="{StaticResource PanelExpander}" IsExpanded="True">
                         <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                            <TextBlock Text="Item Value Range" 
+                            <TextBlock Text="物品价值范围" 
                                        Style="{StaticResource LabelText}" 
                                        Margin="0,0,0,5"/>
 
@@ -87,7 +85,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Regular Below:" 
+                                <TextBlock Text="普通低于:" 
                                            Style="{StaticResource LabelText}" 
                                            VerticalAlignment="Center" 
                                            Grid.Row="0" Grid.Column="0"
@@ -98,13 +96,13 @@
                                            Margin="0,0,10,8"/>
 
                                 <CheckBox x:Name="chkPricePerSlot" 
-                                          Content="Price Per Slot" Tag="PricePerSlot"
+                                          Content="每格价格" Tag="PricePerSlot"
                                           Style="{StaticResource DynamicCheckBoxStyle}" 
                                           Grid.Row="0" Grid.Column="2"
                                           IsChecked="True"
                                           VerticalAlignment="Center"/>
 
-                                <TextBlock Text="Important Above:" 
+                                <TextBlock Text="重要高于:" 
                                            Style="{StaticResource LabelText}" 
                                            VerticalAlignment="Center" 
                                            Grid.Row="1" Grid.Column="0"
@@ -119,7 +117,7 @@
                                     <ColumnDefinition Width="140"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Minimum Corpse Value" Style="{StaticResource LabelText}" 
+                                <TextBlock Text="最低尸体价值" Style="{StaticResource LabelText}" 
                                                        VerticalAlignment="Center" Grid.Column="0"/>
                                 <controls:TextValueSlider
                                                 x:Name="sldrMinCorpseValue" Tag="MinCorpseValue"
@@ -136,7 +134,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="Price Source:" 
+                                <TextBlock Text="价格来源:" 
                                            Style="{StaticResource LabelText}" 
                                            Grid.Column="0"
                                            VerticalAlignment="Center"
@@ -144,44 +142,40 @@
 
                                 <hc:SimpleStackPanel Grid.Column="1" Orientation="Horizontal">
                                     <RadioButton x:Name="rdbFleaPrices" 
-                                                 Content="Flea" Tag="FleaMarket"
+                                                 Content="跳蚤市场" Tag="FleaMarket"
                                                  Margin="0,0,15,0" 
                                                  IsChecked="True"
                                                  VerticalAlignment="Center"/>
 
                                     <RadioButton x:Name="rdbTraderPrices" 
-                                                 Content="Trader" Tag="Trader"
+                                                 Content="商人" Tag="Trader"
                                                  VerticalAlignment="Center"/>
                                 </hc:SimpleStackPanel>
                             </Grid>
                         </hc:SimpleStackPanel>
                     </Expander>
 
-                    <!-- Quick Filters -->
-                    <Expander x:Name="expQuickFilters" Header="Quick Filters" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                    <Expander x:Name="expQuickFilters" Header="快速过滤" Style="{StaticResource PanelExpander}" IsExpanded="True">
                         <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="2,8,2,0">
-                            <!-- Quick Filter Checkboxes -->
                             <hc:CheckComboBox x:Name="ccbLootFilters" Grid.Column="1" Margin="0,0,0,8"
                                                   Style="{StaticResource CheckComboBoxExtend}"
-                                                  hc:TitleElement.Title="Quick Filters"
+                                                  hc:TitleElement.Title="快速过滤"
                                                   hc:TitleElement.TitlePlacement="Top"
-                                                  hc:InfoElement.Placeholder="Show Meds, Show Food, Show Weapons, Show Backpacks..."/>
+                                                  hc:InfoElement.Placeholder="显示药品, 显示食物, 显示武器, 显示背包..."/>
 
-                            <!-- Search Textbox -->
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Item Search" Style="{StaticResource LabelText}" Grid.Row="0" Margin="8,0,0,0"/>
-                                <hc:TextBox x:Name="txtLootToSearch" Grid.Row="1" hc:InfoElement.Placeholder="ex: item1,item2,etc."/>
+                                <TextBlock Text="物品搜索" Style="{StaticResource LabelText}" Grid.Row="0" Margin="8,0,0,0"/>
+                                <hc:TextBox x:Name="txtLootToSearch" Grid.Row="1" hc:InfoElement.Placeholder="例: 物品1,物品2,等"/>
                             </Grid>
                         </hc:SimpleStackPanel>
                     </Expander>
 
-                    <!-- Container Options-->
-                    <Expander x:Name="expContainerOptions" Header="Container Options" Style="{StaticResource PanelExpander}" IsExpanded="True">
+                    <Expander x:Name="expContainerOptions" Header="容器选项" Style="{StaticResource PanelExpander}" IsExpanded="True">
                         <hc:SimpleStackPanel Style="{StaticResource ExpanderContent}" Margin="0,8,0,0">
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
@@ -189,7 +183,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox x:Name="chkStaticContainers" Content="Static Containers" Tag="StaticContainers"
+                                <CheckBox x:Name="chkStaticContainers" Content="静态容器" Tag="StaticContainers"
                                           Style="{StaticResource DynamicCheckBoxStyle}"
                                           Grid.Column="0" Margin="0,0,5,0"/>
                             </Grid>
@@ -219,12 +213,12 @@
 
                                 <hc:SimpleStackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Top">
                                     <CheckBox x:Name="chkContainersSelectAll" 
-                                              Content="Select All" Tag="SelectAllContainers"
+                                              Content="全选" Tag="SelectAllContainers"
                                               Style="{StaticResource DynamicCheckBoxStyle}" 
                                               Margin="0,0,0,8"/>
 
                                     <CheckBox x:Name="chkContainersHideSearched" 
-                                              Content="Hide Searched" Tag="HideSearchedContainers"
+                                              Content="隐藏搜索" Tag="HideSearchedContainers"
                                               Style="{StaticResource DynamicCheckBoxStyle}" 
                                               Margin="0,0,0,0"/>
                                 </hc:SimpleStackPanel>

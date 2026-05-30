@@ -23,14 +23,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="Quest Planner" Style="{StaticResource PanelHeaderText}"/>
+                <TextBlock Grid.Column="0" Text="任务规划器" Style="{StaticResource PanelHeaderText}"/>
 
                 <!-- 3-dots filter menu button -->
                 <Button x:Name="BtnMenu" Grid.Column="1"
                         Tag="ContextMenu"
                         Width="26" Height="26" Margin="0,0,5,0"
                         Style="{StaticResource ButtonIcon}"
-                        ToolTip="Quest Planner Options"
+                        ToolTip="任务规划器选项"
                         hc:IconElement.Width="18"
                         hc:IconElement.Geometry="{StaticResource EllipsisVerticalGeometry}"
                         Click="QuestPlannerButton_Click">
@@ -41,7 +41,7 @@
                                      MaxWidth="200"
                                      Opened="FilterMenu_Opened">
                             <MenuItem x:Name="MnuKappaFilter"
-                                      Header="Kappa Required"
+                                      Header="卡帕必需任务"
                                       IsCheckable="True"
                                       Tag="KappaFilter"
                                       Click="FilterMenuItem_Click"/>
@@ -136,7 +136,7 @@
                         </Style>
                     </Border.Style>
                     <StackPanel>
-                        <TextBlock Text="Hand over items"
+                        <TextBlock Text="交付物品"
                                    FontSize="11" FontWeight="Bold" Foreground="#70A8CC"
                                    Opacity="0.9" Margin="0,0,0,4"/>
                         <TextBlock Text="{Binding HandOverItemsText}"
@@ -166,9 +166,9 @@
                                                 <TextBlock Text="{Binding MapName}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                 <TextBlock Text=" (" Opacity="0.6" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding CompletableObjectiveCount}" Opacity="0.6" VerticalAlignment="Center"/>
-                                                <TextBlock Text=" obj / " Opacity="0.6" VerticalAlignment="Center"/>
+                                                <TextBlock Text=" 目标 / " Opacity="0.6" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding ActiveQuestCount}" Opacity="0.6" VerticalAlignment="Center"/>
-                                                <TextBlock Text=" quests)" Opacity="0.6" VerticalAlignment="Center"/>
+                                                <TextBlock Text=" 任务" Opacity="0.6" VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <TextBlock Grid.Column="1" Text="★"
                                                        FontSize="10" Foreground="#FFCC00" Opacity="0.8" VerticalAlignment="Center"/>
@@ -178,7 +178,7 @@
                                     <StackPanel>
                                         <!-- Missions Sub-Section -->
                                         <StackPanel Margin="12,6,8,0">
-                                            <TextBlock Text="MISSIONS" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                            <TextBlock Text="任务" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                             <ItemsControl ItemsSource="{Binding Quests}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
@@ -229,7 +229,7 @@
                                         <!-- Bring List Sub-Section -->
                                         <StackPanel Margin="12,4,8,0">
                                             <Rectangle Height="1" Fill="{DynamicResource BorderBrush}" Margin="0,0,0,6"/>
-                                            <TextBlock Text="BRING LIST" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                            <TextBlock Text="携带清单" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                             <ItemsControl ItemsSource="{Binding FilteredBringList}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
@@ -282,7 +282,7 @@
                                         <!-- Unlocks Sub-Section -->
                                         <StackPanel Margin="12,4,8,8">
                                             <Rectangle Height="1" Fill="{DynamicResource BorderBrush}" Margin="0,0,0,6"/>
-                                            <TextBlock Text="UNLOCKS" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                            <TextBlock Text="解锁" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                             <ItemsControl ItemsSource="{Binding UnlockedQuests}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
@@ -315,7 +315,7 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate>
-                                                    <TextBlock Text="Quest plan will appear when connected in lobby."
+                                                    <TextBlock Text="连接战局后将显示任务规划。"
                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                Opacity="0.6" TextWrapping="Wrap"
                                                                Margin="16"/>
@@ -398,9 +398,9 @@
                                                     <TextBlock Text="{Binding MapName}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     <TextBlock Text=" (" Opacity="0.6" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding CompletableObjectiveCount}" Opacity="0.6" VerticalAlignment="Center"/>
-                                                    <TextBlock Text=" obj / " Opacity="0.6" VerticalAlignment="Center"/>
+                                                    <TextBlock Text=" 目标 / " Opacity="0.6" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding ActiveQuestCount}" Opacity="0.6" VerticalAlignment="Center"/>
-                                                    <TextBlock Text=" quests)" Opacity="0.6" VerticalAlignment="Center"/>
+                                                    <TextBlock Text=" 任务" Opacity="0.6" VerticalAlignment="Center"/>
                                                 </StackPanel>
 
                                                 <TextBlock x:Name="ChevronIndicator" Grid.Column="1" Text="&#x25B6;"
@@ -414,7 +414,7 @@
 
                                             <!-- Missions Sub-Section -->
                                             <StackPanel Margin="12,6,8,0">
-                                                <TextBlock Text="MISSIONS" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                                <TextBlock Text="任务" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                                 <ItemsControl ItemsSource="{Binding Quests}">
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
@@ -467,7 +467,7 @@
                                             <!-- Bring List Sub-Section -->
                                             <StackPanel Margin="12,4,8,0">
                                                 <Rectangle Height="1" Fill="{DynamicResource BorderBrush}" Margin="0,0,0,6"/>
-                                                <TextBlock Text="BRING LIST" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                                <TextBlock Text="携带清单" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                                 <ItemsControl ItemsSource="{Binding FilteredBringList}">
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
@@ -526,7 +526,7 @@
                                             <!-- Unlocks Sub-Section -->
                                             <StackPanel Margin="12,4,8,8">
                                                 <Rectangle Height="1" Fill="{DynamicResource BorderBrush}" Margin="0,0,0,6"/>
-                                                <TextBlock Text="UNLOCKS" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                                <TextBlock Text="解锁" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                                 <ItemsControl ItemsSource="{Binding UnlockedQuests}">
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
@@ -582,7 +582,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="ALL MAPS"
+                                        <TextBlock Grid.Column="0" Text="所有地图"
                                                    FontWeight="SemiBold" FontSize="12"
                                                    Opacity="0.85" VerticalAlignment="Center"/>
                                         <TextBlock x:Name="AllMapsChevron" Grid.Column="1"
@@ -604,7 +604,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </StackPanel.Style>
-                                        <TextBlock Text="FIND IN RAID" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
+                                        <TextBlock Text="战局中获取" FontSize="10" Opacity="0.5" Margin="0,0,0,4"/>
                                         <ItemsControl ItemsSource="{Binding FirItems}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>

@@ -71,15 +71,15 @@ public sealed class AreaUpgradeView
 
     private static string FormatStatus(EAreaStatus s) => s switch
     {
-        EAreaStatus.ReadyToConstruct => "BUILD",
-        EAreaStatus.ReadyToUpgrade => "UPGRADE",
+        EAreaStatus.ReadyToConstruct => "可建造",
+        EAreaStatus.ReadyToUpgrade => "可升级",
         EAreaStatus.ReadyToInstallConstruct or
-        EAreaStatus.ReadyToInstallUpgrade => "INSTALL",
-        EAreaStatus.Constructing => "Building…",
-        EAreaStatus.Upgrading => "Upgrading…",
-        EAreaStatus.AutoUpgrading => "Auto",
-        EAreaStatus.LockedToConstruct or EAreaStatus.LockedToUpgrade => "Locked",
-        EAreaStatus.NoFutureUpgrades => "Max",
+        EAreaStatus.ReadyToInstallUpgrade => "可安装",
+        EAreaStatus.Constructing => "建造中…",
+        EAreaStatus.Upgrading => "升级中…",
+        EAreaStatus.AutoUpgrading => "自动",
+        EAreaStatus.LockedToConstruct or EAreaStatus.LockedToUpgrade => "已锁定",
+        EAreaStatus.NoFutureUpgrades => "已满级",
         _ => s.ToString()
     };
 
@@ -121,9 +121,9 @@ public sealed class RequirementView
             ERequirementType.Skill
                 => $"{req.SkillName ?? "Skill"} lv{req.SkillLevel}",
             ERequirementType.TraderLoyalty
-                => $"{req.TraderName ?? req.TraderId ?? "Trader"} LL{req.LoyaltyLevel}",
-            ERequirementType.TraderUnlock => "Trader unlock",
-            ERequirementType.QuestComplete => "Quest complete",
+                => $"{req.TraderName ?? req.TraderId ?? "商人"} LL{req.LoyaltyLevel}",
+            ERequirementType.TraderUnlock => "商人解锁",
+            ERequirementType.QuestComplete => "任务完成",
             _ => req.Type.ToString()
         };
     }
@@ -207,7 +207,7 @@ public partial class HideoutStashControl : UserControl
                 TraderName = first.TraderName,
                 FleaFmt = FormatPrice(fleaRaw),
                 BestFmt = FormatPrice(bestRaw),
-                SellOn = sellOnFlea ? "Flea" : "Trader",
+                SellOn = sellOnFlea ? "跳蚤" : "商人",
                 SellOnFlea = sellOnFlea,
                 TraderRaw = traderRaw,
                 FleaRaw = fleaRaw,
@@ -245,7 +245,7 @@ public partial class HideoutStashControl : UserControl
     private async void BtnRefresh_Click(object sender, RoutedEventArgs e)
     {
         BtnRefresh.IsEnabled = false;
-        TxtItemCount.Text = "Refreshing...";
+        TxtItemCount.Text = "正在刷新...";
         try
         {
             var status = await Program.Hideout.RefreshAsync();
@@ -278,7 +278,7 @@ public partial class HideoutStashControl : UserControl
                 TraderName = si.BestTraderName,
                 FleaFmt = FormatPrice(si.FleaPrice * si.StackCount),
                 BestFmt = FormatPrice(si.BestPrice),
-                SellOn = si.SellOnFlea ? "Flea" : "Trader",
+                SellOn = si.SellOnFlea ? "跳蚤" : "商人",
                 SellOnFlea = si.SellOnFlea,
                 TraderRaw = si.TraderPrice * si.StackCount,
                 FleaRaw = si.FleaPrice * si.StackCount,
