@@ -218,8 +218,8 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
             }
             else
             {
-                canvas.DrawText("i", point, SKTextAlign.Left, SKPaints.RadarFontRegular12, SKPaints.TextOutline);
-                canvas.DrawText("i", point, SKTextAlign.Left, SKPaints.RadarFontRegular12, paints.Item2);
+                canvas.DrawText("V", point, SKTextAlign.Left, SKPaints.RadarFontRegular12, SKPaints.TextOutline);
+                canvas.DrawText("V", point, SKTextAlign.Left, SKPaints.RadarFontRegular12, paints.Item2);
                 distanceYOffset = 12f * MainWindow.UIScale;
                 nameYOffset = 0f;
             }

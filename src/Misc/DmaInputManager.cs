@@ -131,20 +131,44 @@ namespace eft_dma_radar.Misc
         }
 
         // Win10: gafAsyncKeyState is a direct export of win32kbase.sys in winlogon's kernel memory.
+        // Fallback: use signature scanning if EAT lookup fails (newer Win10 builds may strip the export).
         private ulong ResolveWin10KeyState()
         {
             uint kernelPid = _winLogonPid | Vmm.PID_PROCESS_WITH_KERNELMEMORY;
             var eatEntries = _vmm.Map_GetEAT(kernelPid, "win32kbase.sys", out _);
-            if (eatEntries == null)
-                throw new Exception("DmaInputManager: Map_GetEAT failed for win32kbase.sys");
-
-            foreach (var entry in eatEntries)
+            if (eatEntries != null)
             {
-                if (entry.sFunction == "gafAsyncKeyState")
-                    return entry.vaFunction;
+                foreach (var entry in eatEntries)
+                {
+                    if (entry.sFunction == "gafAsyncKeyState")
+                        return entry.vaFunction;
+                }
             }
 
-            throw new Exception("DmaInputManager: gafAsyncKeyState not found in win32kbase.sys EAT");
+            // Fallback: try signature-based resolution (same approach as Win11)
+            if (!_vmm.Map_GetModuleFromName(kernelPid, "win32kbase.sys", out var baseMod))
+                throw new Exception("DmaInputManager: failed to get win32kbase.sys");
+
+            ulong baseStart = baseMod.vaBase;
+            ulong baseEnd = baseStart + baseMod.cbImageSize;
+
+            // Signature for: lea rdx, [rax+offset] ; xorps xmm0, xmm0 (common pattern for gafAsyncKeyState)
+            ulong ptr = _vmm.FindSignature(kernelPid, "48 8D 90 ?? ?? ?? ?? E8 ?? ?? ?? ?? 0F 57 C0", baseStart, baseEnd);
+            if (ptr == 0)
+            {
+                // Alternative signature: mov rax, [rel gafAsyncKeyState]
+                ptr = _vmm.FindSignature(kernelPid, "48 8B 05 ?? ?? ?? ?? 48 8B 04 C8", baseStart, baseEnd);
+            }
+            if (ptr == 0)
+                throw new Exception("DmaInputManager: gafAsyncKeyState not found in win32kbase.sys (EAT and sig scan both failed)");
+
+            // The address is RIP-relative offset from the instruction
+            int relative = _vmm.MemReadValue<int>(kernelPid, ptr + 3);
+            ulong result = ptr + 7 + (ulong)relative;
+            if (IsValidKernelVA(result))
+                return result;
+
+            throw new Exception("DmaInputManager: gafAsyncKeyState resolved to invalid kernel VA");
         }
 
         private static bool IsValidKernelVA(ulong va) => va > 0x7FFFFFFFFFFFUL;
